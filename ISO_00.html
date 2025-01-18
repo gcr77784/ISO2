@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互動式動態小說閱讀頁面</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        /* 特效容器樣式 */
+        .effect-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* 雨滴容器 */  
+        .rain-container {  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            width: 100%;  
+            height: 100%;  
+            pointer-events: none;  
+            z-index: 2;  
+            display: none;  
+        }  
+
+        .rain-container.active {  
+            display: block;  
+        }  
+
+        /* 雨滴樣式 */  
+        .rain-drop {  
+            position: absolute;  
+            width: 1.5px;  
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.7));  
+            animation: rain linear infinite;  
+        }  
+
+        /* 雨滴動畫 */  
+        @keyframes rain {  
+            0% {  
+                transform: translateY(-20vh); /* 縮短起始距離 */  
+            }  
+            100% {  
+                transform: translateY(100vh);  
+            }  
+        }  
+
+        /* 血色效果 */
+        .blood-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0;
+            display: none;
+        }
+
+        .blood-overlay.active {
+            display: block;
+            opacity: 1;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                background: rgba(255, 0, 0, 0.2);
+            }
+            50% {
+                background: rgba(255, 0, 0, 0.3);
+            }
+        }
+
+        /* 雜訊效果 */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0;
+            display: none;
+        }
+
+        .noise.active {
+            display: block;
+            opacity: 0.1;
+            animation: noise 0.2s steps(4) infinite;
+        }
+
+        /* 可點擊段落樣式 */
+        .effect-paragraph {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* 音樂播放器樣式 */
+        .audio-player {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+
+        audio {
+            height: 2rem;
+            filter: invert(1) hue-rotate(180deg);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .audio-player {
+                bottom: 0;
+                right: 0;
+                left: 0;
+                border-radius: 0;
+            }
+            
+            audio {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 min-h-screen">
+    <!-- 特效容器 -->
+    <div id="effectContainer" class="effect-container">
+        <div id="rainContainer" class="rain-container"></div>
+        <div id="bloodOverlay" class="blood-overlay"></div>
+        <canvas id="noiseCanvas" class="noise"></canvas>
+    </div>
+
+    <!-- 內容區域 -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 圖片容器 -->
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/3FOhlooytu8m9ttRm8vc5L.png" 
+                     alt="故事配圖" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <!-- 內容區域 -->
+        <div class="space-y-16 content-container pb-24">
+            <!-- 第一章 -->
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">序章</h2>
+                <p class="leading-loose text-justify text-lg mb-6">
+                    <i>我的生命，你全知曉。</i>
+                    <br>
+                    <i>我何時在暗中構形，我何時在母胎造成，我的骨骸你全知情。</i>
+                    <br>
+                    <i>我尚在母胎，你已親眼看見，世人的歲月尚未來到以前，</i> 
+                    <br>
+                    <i>都已全部記錄在冊表，都已全由你預先定好。</i>                
+                    <br>
+                    <br>
+                    　　神父蓋上泛黃的聖經封面，時間一分一秒地流逝。他坐在公園長椅，膝上放著一尊精緻的陶瓷洋娃娃，等待那位應該出現的守密人。最近天氣寒冷，天空總是籠罩厚重的烏雲，氣象報告也顯示降雨機率達百分之六十，因此他特地攜帶一把黑色長傘，雖然傘骨的部分已經凹折，但至少能讓他避開所有水漥。    
+                </p>
+                <p class="effect-paragraph leading-loose text-justify text-lg mb-6" data-effect="rain">
+                    　　天空偶爾飄下細雨，行人匆匆踏過濕滑步道，腳步在水窪激起細微的漣漪。現在公園裡只剩下幾隻鴿子和飄揚的塑膠袋，沙沙地穿過金屬欄杆。他配戴眼罩，僅憑單眼注視公園對面的玻璃櫥窗，那些模糊的倒影似乎在霧氣朦朧中扭曲。
+                </p>
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　神父心想，至少還有零星鳥鳴陪伴，獨自在公園不至於太過寂寞，正想伸手撥去陶瓷洋娃娃頭髮的水珠時，他聽見汽車引擎轟鳴劃破寧靜，腳步聲響由遠而近，又戛然而止。
+                    <br>
+                    <br>
+                    　　伊洛娜．安德拉斯穿著高跟鞋向前走，她的步伐由快而慢，隨後駐足不前。
+                    <br>
+                    <br>
+                    　　她面對接待廳的大門，腳踩祖父的橄欖色羊毛地毯，雙手抱胸，猶豫不決，直到弟弟伊登從另一端長廊走來。姊弟兩人年齡差了六歲，除了眼睛顏色，他們擁有相似的面孔。也許這是天天見面造成的錯覺，再過幾年就不會如此相像，因為兩人即將分居兩地，不——正確而言，只有伊洛娜必須離開熟悉的家。
+                    <br>
+                    <br>
+                    　　雙親守著祖父留下的一切，使姊弟兩人的童年生活無憂無慮。但是伊洛娜很明白，這份責任無關財產，而是她有義務與父母共同守護歷史悠久的宅邸。祖父的收藏室仍然上鎖，裡面陳列宗教信仰及家族文化有關的貴重物品，光是維護便所費不貲。 
+                    <br>
+                    <br>
+                    　　「我聽說對方所住的城鎮風景很優美。」察覺姊姊的緊張，伊登輕聲安慰，「況且，只要我放棄藝術學院的課程，就能跟著妳一起生活。」
+                    <br>
+                    <br>
+                    　　「不，你應該追求自己喜歡的興趣，沒有比這件事更重要的了。」伊洛娜搖搖頭。
+                    <br>
+                    <br>
+                    　　「但妳和福爾曼相處看起來並不開心……」伊登目光轉向接待廳大門，又回到姊姊臉上，接著露出笑容：「雖然我們有很多合照，我還是想替伊洛娜畫一幅屬於妳的畫。」
+                    <br>
+                    <br>
+                    　　「只剩一週來得及嗎？」伊洛娜睜大眼睛，握住弟弟的手，「如果你願意，我會掛在新家的寢室裡面。」除了欣喜答應，她也強調自己會堅持己見。不論未婚夫怎麼想，這幅畫都將佔據家中最顯眼的位置。 
+                    <br>
+                    <br>
+                    　　「我今天就會開始作畫，希望它能成為妳的結婚紀念禮物。」伊登回握伊洛娜的手，兩人又簡短交流幾句，親暱擁抱後才依依不捨地放開，提醒伊洛娜進入接待廳。
+                    <br>
+                    <br>
+                    　　兩人只稍推開陳舊的木板門，就能看見黑色西裝的身影映入眼簾。特倫頓．福爾曼早已等候多時，他站在牆邊的古董鏡前，鏡中倒映著那頭耀眼的金髮，與伊洛娜和伊登的烏黑髮絲形成鮮明對比。
+                    <br>
+                    <br>
+                    　　兩人性別不同，出身地和生活習慣不同，想法也沒有任何相似之處，格格不入的違和感在伊洛娜心中擴散。此時陽光投射進來，透過樹梢在地毯形成斑斕光影，讓她不自覺地望向伊登，以及他身後那面描繪天使降臨的浮雕玻璃窗。  
+                </p>         
+               </section>
+
+    <script>  
+        // 特效狀態  
+        const effects = {  
+            rain: false,  
+            blood: false,  
+            noise: false  
+        };  
+    
+        let rainInterval;  
+    
+        // 創建單個雨滴  
+        function createRainDrop(isInitial = false) {  
+            const rainContainer = document.getElementById('rainContainer');  
+            const drop = document.createElement('div');  
+            drop.className = 'rain-drop';  
+            
+            // 隨機位置  
+            drop.style.left = Math.random() * 100 + 'vw';  
+            
+            // 隨機高度  
+            drop.style.height = Math.random() * 20 + 20 + 'px';  
+            
+            // 隨機透明度  
+            drop.style.opacity = Math.random() * 0.3 + 0.2;  
+            
+            // 隨機速度（1-2秒）  
+            drop.style.animationDuration = (Math.random() * 1 + 1) + 's';  
+            
+            // 如果是初始雨滴，隨機設置初始位置  
+            if (isInitial) {  
+                const randomStart = Math.random() * 100;  
+                drop.style.top = `-${randomStart}%`;  
+            }  
+            
+            rainContainer.appendChild(drop);  
+            
+            // 5秒後移除雨滴  
+            setTimeout(() => {  
+                drop.remove();  
+            }, 5000);  
+        }  
+    
+        // 初始化雨滴  
+        function initializeRain() {  
+            // 生成30個初始雨滴  
+            for(let i = 0; i < 30; i++) {  
+                createRainDrop(true);  
+            }  
+        }  
+    
+        // 雜訊效果  
+        const noiseCanvas = document.getElementById('noiseCanvas');  
+        const ctx = noiseCanvas.getContext('2d');  
+        let noiseAnimation;  
+    
+        function resizeCanvas() {  
+            noiseCanvas.width = window.innerWidth;  
+            noiseCanvas.height = window.innerHeight;  
+        }  
+    
+        function createNoise() {  
+            const imageData = ctx.createImageData(noiseCanvas.width, noiseCanvas.height);  
+            const data = imageData.data;  
+            
+            for (let i = 0; i < data.length; i += 4) {  
+                const value = Math.random() * 255;  
+                data[i] = value;  
+                data[i + 1] = value;  
+                data[i + 2] = value;  
+                data[i + 3] = 255;  
+            }  
+            
+            ctx.putImageData(imageData, 0, 0);  
+            
+            if (noiseCanvas.classList.contains('active')) {  
+                noiseAnimation = requestAnimationFrame(createNoise);  
+            }  
+        }  
+    
+        // 初始化  
+        resizeCanvas();  
+        window.addEventListener('resize', resizeCanvas);  
+    
+        // 切換特效  
+        function toggleEffect(effectName) {  
+            // 關閉其他效果  
+            Object.keys(effects).forEach(key => {  
+                if (key !== effectName) {  
+                    effects[key] = false;  
+                    // 根據效果類型清理  
+                    if (key === 'rain') {  
+                        document.getElementById('rainContainer').classList.remove('active');  
+                        clearInterval(rainInterval);  
+                        document.getElementById('rainContainer').innerHTML = '';  
+                    } else if (key === 'blood') {  
+                        document.getElementById('bloodOverlay').classList.remove('active');  
+                    } else if (key === 'noise') {  
+                        noiseCanvas.classList.remove('active');  
+                        cancelAnimationFrame(noiseAnimation);  
+                        ctx.clearRect(0, 0, noiseCanvas.width, noiseCanvas.height);  
+                    }  
+                }  
+            });  
+    
+            // 切換當前效果  
+            effects[effectName] = !effects[effectName];  
+    
+            switch(effectName) {  
+                case 'rain':  
+                    const rainContainer = document.getElementById('rainContainer');  
+                    rainContainer.classList.toggle('active');  
+                    if (effects.rain) {  
+                        initializeRain(); // 立即生成初始雨滴  
+                        rainInterval = setInterval(() => {  
+                            createRainDrop();  
+                        }, 100); // 每100ms生成一個新雨滴  
+                    } else {  
+                        clearInterval(rainInterval);  
+                        rainContainer.innerHTML = '';  
+                    }  
+                    break;  
+    
+                case 'blood':  
+                    const bloodOverlay = document.getElementById('bloodOverlay');  
+                    bloodOverlay.classList.toggle('active');  
+                    break;  
+    
+                case 'noise':  
+                    noiseCanvas.classList.toggle('active');  
+                    if (effects.noise) {  
+                        createNoise();  
+                    } else {  
+                        cancelAnimationFrame(noiseAnimation);  
+                        ctx.clearRect(0, 0, noiseCanvas.width, noiseCanvas.height);  
+                    }  
+                    break;  
+            }  
+        }  
+    
+        // 綁定點擊事件  
+        document.querySelectorAll('.effect-paragraph').forEach(paragraph => {  
+            paragraph.addEventListener('click', function() {  
+                const effectType = this.dataset.effect;  
+                if (effectType) {  
+                    toggleEffect(effectType);  
+                }  
+            });  
+        });  
+    
+        // 控制台代理  
+        window.parent.postMessage({ action: "ready" }, "*");   
+        
+        window.console = new Proxy(console, {  
+            get(target, prop) {  
+                if (['log', 'warn', 'error'].includes(prop)) {  
+                    return new Proxy(target[prop], {  
+                        apply(fn, thisArg, args) {  
+                            fn.apply(thisArg, args);  
+                            window.parent.postMessage({   
+                                action: 'console',   
+                                type: prop,   
+                                args: args.map((arg) => {  
+                                    try {  
+                                        return JSON.stringify(arg).replace(/^["']|["']$/g, '');  
+                                    } catch (e) {  
+                                        return arg;  
+                                    }  
+                                })   
+                            }, '*');  
+                        }  
+                    });  
+                }  
+                return target[prop];  
+            }  
+        });  
+    </script></body>
+</html>
