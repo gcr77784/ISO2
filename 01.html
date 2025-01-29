@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【ISO】序章</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        h2, .border-b {
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .effect-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* 漣漪效果 */  
+        .ripple-container {  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            width: 100%;  
+            height: 100%;  
+            z-index: 51;  
+            display: none;  
+        }  
+
+        .ripple-container.active {  
+            display: block;  
+        }  
+
+        .ripple {  
+            position: absolute;  
+            border: 2px solid rgba(255, 255, 255, 0.3);  
+            border-radius: 50%;  
+            animation: rippleEffect 3s linear infinite;  
+        }  
+
+        @keyframes rippleEffect {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0.8;
+                transform: translate(-50%, -50%);
+            }
+            100% {
+                width: 300px;
+                height: 300px;
+                opacity: 0;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* 眼睛效果 */
+        .eyes-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 52;
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .eyes-container.active {
+            display: block;
+        }
+
+        .eye {
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100px/50px;
+            pointer-events: none;
+        }
+
+        .pupil {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 0, 0, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+        }
+
+        .effect-paragraph {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .effect-paragraph:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 min-h-screen">
+    <div id="effectContainer" class="effect-container">
+        <div id="rippleContainer" class="ripple-container"></div>
+        <div id="eyesContainer" class="eyes-container"></div>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/1eAZmFk31IME1cKUjo4nTf.png" 
+                     alt="故事配圖" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <div class="space-y-16 content-container pb-24">
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">第一章‧視線</h2>
+                <p class="leading-loose text-justify text-lg mb-6">
+                　　特倫頓的住宅位處偏郊小鎮，小鎮人均薪資卻異常地高，因為這裡是福爾曼零售企業的總部所在地，吸引大量企業及合作廠商進駐，也意味這個小鎮實際上是由福爾曼家族所主導。
+                <br>
+                <br>
+                　　在外地，特倫頓厭惡表露自己的身分。相比金融或科技新貴，零售業起家的富人聽起來並不風光，家訓和嚴格規定，也讓他注定無法擁有豪華跑車。特倫頓嫉妒那些在聚會中結識的富家子弟，以及更深入的秘密集會場所，這些高高在上的嘴臉就像自己是神明，無所不能。
+                <br>
+                <br>
+                　　可惜特倫頓不相信神，他只當這些物品是人類賦予的稀有價值；天使的血液和骨頭，與寶石及藝術品相同，只是被口耳相傳炒作出來的價值。特倫頓對這些神秘的集會嗤之以鼻，在他眼中，不過是一群富家子弟炒作出來的把戲，他厭惡虛假的神祇崇拜，看不起沉迷其中的人。 
+                <br>
+                <br>
+                　　福爾曼家族與安德拉斯家族為舊識，當安德拉斯家族逐漸走下坡，只好將價值日漸高漲的收藏作為籌碼、換取庇護，因此半年後的婚事不過是交易和賣身，就算伊洛娜飽讀詩書，是個聰明的女人——特倫頓依然瞧不起未婚妻，每當她優雅談論文學和藝術，就像一把利刃插在他的自尊心上。
+                <br>
+                <br>
+                　　伊洛娜能夠感受到她被冷落，特倫頓迎接時的風度翩翩只是假象，那頭金髮在昏黃燈光下顯得黯淡。
+                <br>
+                <br>
+                　　福爾曼家族不請傭人，因為祖輩留下的家訓和傳統，他們喜歡腳踏實地和節儉度日。現在為了入境隨俗，伊洛娜必須學習料理與家務，當她雙手被劃傷，第一次替福爾曼端上晚餐的時候，特倫頓並沒有說出感謝，而是殘忍的評論：「真是難吃。」
+                </p>
+                <p class="effect-paragraph leading-loose text-justify text-lg mb-6" data-effect="ripple">
+                　　兩人便再無對話，坐在餐桌兩側無聲進餐的時候，只剩刀叉碰撞瓷盤的聲響在伊洛娜心底迴盪。
+                </p>
+                <p class="leading-loose text-justify text-lg mb-6">
+                　　因此伊洛娜能夠期待的事情，只有伊登不定時前來拜訪。伊洛娜習慣在他來訪前煮一壺故鄉的紅茶，讓陌生的家裡瀰漫熟悉氣味。伊登贈與的油畫懸掛在客廳正中央，儘管畫中女人的眼神溫柔而疏離，畫布上散發淡淡的亞麻仁油氣味，卻令特倫頓感到不安。  
+                <br>
+                <br>
+                　　某天午後，伊登又來訪了。趁伊洛娜走進廚房的空檔，伊登端起茶杯走向獨自坐在扶手椅上的特倫頓。  
+                <br>
+                <br>
+                　　「福爾曼先生……不，姊夫，」伊登輕聲說道，「你喜歡這幅畫嗎？」  
+                <br>
+                <br>
+                　　「我對藝術沒有興趣。」特倫頓的手指在扶手緩緩打轉，沒有抬頭，而且他的語氣和態度尖銳，「你不必勉強和我聊天，也不必告訴我作畫的材料和步驟。」  
+                <br>
+                <br>
+                　　「這樣啊。」伊登保持得體的微笑，「如果姊夫不願我打擾夫妻間的生活，那麼之後我想與伊洛娜通信……」  
+                <br>
+                <br>
+                　　「你自便。」特倫頓抬頭瞥了一眼伊登。恰巧伊洛娜端著茶具從廚房走出，小心翼翼在矮几上擱置一杯紅茶，杯中茶液反射伊洛娜的謹慎臉龐，漾出一圈圈波紋漣漪。  
+                <br>
+                <br>
+                　　寬敞的客廳彷彿被中央畫作切成兩半。伊登輕輕握著伊洛娜的手，兩人站在斜陽投射的陰影處交談，話題圍繞於特倫頓理解甚少的領域，亦或關於宗教信仰。如果特倫頓望向伊登罕見的紫色眼眸，總是會想起深夜經過畫作時的怪異感受。
+                </p>  
+                <p class="effect-paragraph leading-loose text-justify text-lg mb-6" data-effect="eyes">
+                　　在昏黃燈光之下，伊洛娜的畫作筆觸扭曲變形，在漩渦般的線條中浮現數張猙獰人臉，彷彿它們已經活過來，凝視著特倫頓的一舉一動。
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const effects = {
+            ripple: false,
+            eyes: false
+        };
+
+        // 漣漪相關變量和函數
+        let currentRipples = 0;
+        const MAX_RIPPLES = 5;
+        let rippleInterval;
+
+        function createRipple(event) {
+            if (currentRipples >= MAX_RIPPLES) {
+                return;
+            }
+
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = event.clientX + 'px';
+            ripple.style.top = event.clientY + 'px';
+            
+            currentRipples++;
+
+            document.getElementById('rippleContainer').appendChild(ripple);
+
+            ripple.addEventListener('animationend', () => {
+                ripple.remove();
+                currentRipples--;
+            });
+        }
+
+        // 眼睛相關函數
+        function isPositionAvailable(positions, x, y, minDistance) {
+            for (const pos of positions) {
+                const distance = Math.hypot(x - pos.x, y - pos.y);
+                if (distance < minDistance) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function getValidPosition(positions, minDistance) {
+            const container = document.getElementById('eyesContainer');
+            const width = container.clientWidth - 40;
+            const height = container.clientHeight - 30;
+            let attempts = 0;
+            const maxAttempts = 100;
+
+            while (attempts < maxAttempts) {
+                const x = Math.random() * width;
+                const y = Math.random() * height;
+
+                if (isPositionAvailable(positions, x, y, minDistance)) {
+                    return { x, y };
+                }
+                attempts++;
+            }
+
+            return null;
+        }
+
+        function createEyes() {
+            const container = document.getElementById('eyesContainer');
+            container.innerHTML = '';
+            const numEyes = 40;
+            const minDistance = 50;
+            const positions = [];
+
+            for (let i = 0; i < numEyes; i++) {
+                const position = getValidPosition(positions, minDistance);
+                if (position) {
+                    const eye = document.createElement('div');
+                    eye.className = 'eye';
+                    eye.style.left = position.x + 'px';
+                    eye.style.top = position.y + 'px';
+
+                    const pupil = document.createElement('div');
+                    pupil.className = 'pupil';
+                    eye.appendChild(pupil);
+                    container.appendChild(eye);
+
+                    positions.push(position);
+                }
+            }
+        }
+
+        function updateEyes(event) {
+            if (!effects.eyes) return;
+
+            document.querySelectorAll('.pupil').forEach(pupil => {
+                const eye = pupil.parentElement;
+                const eyeRect = eye.getBoundingClientRect();
+                const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+                const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+                const angle = Math.atan2(event.clientY - eyeCenterY, event.clientX - eyeCenterX);
+                const distance = Math.min(3, Math.hypot(event.clientX - eyeCenterX, event.clientY - eyeCenterY) / 100);
+
+                const pupilX = Math.cos(angle) * distance;
+                const pupilY = Math.sin(angle) * distance;
+
+                pupil.style.transform = `translate(calc(-50% + ${pupilX}px), calc(-50% + ${pupilY}px))`;
+            });
+        }
+
+        // 特效切換函數
+        function toggleEffect(effectName) {
+            effects[effectName] = !effects[effectName];
+
+            switch(effectName) {
+                case 'ripple':
+                    const rippleContainer = document.getElementById('rippleContainer');
+                    rippleContainer.classList.toggle('active');
+                    if (effects.ripple) {
+                        currentRipples = 0;
+                        rippleInterval = setInterval(() => {
+                            if (currentRipples < MAX_RIPPLES) {
+                                createRipple({
+                                    clientX: Math.random() * window.innerWidth,
+                                    clientY: Math.random() * window.innerHeight
+                                });
+                            }
+                        }, 2000);
+                    } else {
+                        clearInterval(rippleInterval);
+                        rippleContainer.innerHTML = '';
+                        currentRipples = 0;
+                    }
+                    break;
+
+                case 'eyes':
+                    const eyesContainer = document.getElementById('eyesContainer');
+                    eyesContainer.classList.toggle('active');
+                    if (effects.eyes) {
+                        createEyes();
+                        document.addEventListener('mousemove', updateEyes);
+                    } else {
+                        document.removeEventListener('mousemove', updateEyes);
+                        eyesContainer.innerHTML = '';
+                    }
+                    break;
+            }
+        }
+
+        // 事件監聽器
+        document.querySelectorAll('.effect-paragraph').forEach(paragraph => {
+            paragraph.addEventListener('click', function() {
+                const effectType = this.dataset.effect;
+                if (effectType) {
+                    toggleEffect(effectType);
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (effects.eyes) {
+                createEyes();
+            }
+        });
+
+        window.addEventListener('mousemove', updateEyes);
+    </script>
+<script>window.parent.postMessage({ action: "ready" }, "*"); 
+ 
+window.console = new Proxy(console, {
+  get(target, prop) {
+    if (['log', 'warn', 'error'].includes(prop)) {
+      return new Proxy(target[prop], {
+        apply(fn, thisArg, args) {
+          fn.apply(thisArg, args);
+          window.parent.postMessage({ action: 'console', 
+            type: prop, 
+            args: args.map((arg) => {
+              try {
+                return JSON.stringify(arg).replace(/^["']|["']$/g, '');
+              } catch (e) {
+                return arg;
+              }
+            }) 
+          }, '*');
+        }
+      });
+    }
+    return target[prop];
+  }
+});
+</script></body>
+</html>
