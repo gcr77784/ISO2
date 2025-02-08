@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【ISO】第二章</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        /* 特效容器樣式 */
+        .effect-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* 雨滴容器 */  
+        .rain-container {  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            width: 100%;  
+            height: 100%;  
+            pointer-events: none;  
+            z-index: 2;  
+            display: none;  
+        }  
+
+        .rain-container.active {  
+            display: block;  
+        }  
+
+        /* 雨滴樣式 */  
+        .rain-drop {  
+            position: absolute;  
+            width: 1.5px;  
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.7));  
+            animation: rain linear infinite;  
+        }  
+
+        /* 雨滴動畫 */  
+        @keyframes rain {  
+            0% {  
+                transform: translateY(-20vh); /* 縮短起始距離 */  
+            }  
+            100% {  
+                transform: translateY(100vh);  
+            }  
+        }  
+
+        /* 血色效果 */
+        .blood-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0;
+            display: none;
+        }
+
+        .blood-overlay.active {
+            display: block;
+            opacity: 1;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                background: rgba(255, 0, 0, 0.2);
+            }
+            50% {
+                background: rgba(255, 0, 0, 0.3);
+            }
+        }
+
+        /* 雜訊效果 */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0;
+            display: none;
+        }
+
+        .noise.active {
+            display: block;
+            opacity: 0.1;
+            animation: noise 0.2s steps(4) infinite;
+        }
+
+        /* 可點擊段落樣式 */
+        .effect-paragraph {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+    </style>
+</head>
+<body class="bg-black text-gray-300 min-h-screen">
+    <audio id="glassBreak" preload="auto">  
+        <source src="https://gcr77784.github.io/ISO2/Small Glass Pane Shatter.mp3" type="audio/mpeg">  
+    </audio>  
+    <!-- 特效容器 -->
+    <div id="effectContainer" class="effect-container">
+        <div id="rainContainer" class="rain-container"></div>
+        <div id="bloodOverlay" class="blood-overlay"></div>
+        <canvas id="noiseCanvas" class="noise"></canvas>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/AI9lup1bJFxu1QeoJBmb6.png" 
+                     alt="碎玻璃" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <div class="space-y-16 content-container pb-24">
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">第二章‧接觸</h2>
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　特倫頓作息固定，每天準時出現在福爾曼總部。這份工作不過是討好家族的籌碼，如同即將迎娶伊洛娜——所有的一切，都是為了攀升地位和滿足期許。  
+                    <br>
+                    <br>
+                    　　他早上出門，留下伊洛娜與長輩親戚周旋，返家卻看見茶几有疊隨意塗鴉的紙張。紙張上的文字扭曲無法辨識，墨水味道詭異難聞，所以特倫頓以為這是親戚孩子的惡作劇，極為無聊的惡作劇。
+                    <br>
+                    <br>                    
+                    　　特倫頓將這些紙張揉成球，眼角餘光看見伊洛娜急忙趕到。伊洛娜深深吸了一口氣，接著長長吐出。自從收到廚藝評價，她沒有再與特倫頓好好談話。特倫頓才發現伊洛娜除了驚愕，亦看起來非常憤怒。
+                    <br>
+                    <br>                      
+                    　　「你為什麼要這麼做呢？」伊洛娜質問特倫頓。
+                    <br>
+                    <br>                      
+                    　　「我以為這疊紙只是無聊的惡作劇。」特倫頓不認為自己做了會讓伊洛娜痛苦的事情，直到啪的一聲響，伴隨臉頰痛辣感襲來。
+                    <br>
+                    <br>                      
+                    　　為何伊洛娜收到尖銳評價沒有反應，卻因為他手裡的奇怪塗鴉感到憤怒？
+                    <br>
+                    <br>                      
+                    　　特倫頓被伊洛娜打了一個巴掌後表情呆滯，直到攤開紙張，才發現塗鴉不見了，而是一行一行輕快的字跡。特倫頓終於想起來，現在伊洛娜每週都會收到伊登的信件。
+                    <br>
+                    <br>                      
+                    　　「我想再和福爾曼先生及女士談談這樁婚事。」伊洛娜取走信紙攤平皺褶，視線沒有看向特倫頓。
+                    <br>
+                    <br>                      
+                    　　「伊洛娜。」特倫頓深吸一口氣，第一次在她面前低下頭，藉由陰影掩飾扭曲的表情，喉間擠出顫抖的語氣：「我保證會改善我們的相處方式。」
+                    <br>
+                    <br>                      
+                    　　耗盡力氣以後，特倫頓接下來的提議十分冷漠，「我們有很多方式可以改善，包括錯開起居時間，還有婚後分開住處。」
+                    <br>
+                    <br>                      
+                    　　「特倫頓。」伊洛娜不可置信，躊躇片刻說出真心話：「婚姻不應該是交換枷鎖，我要的只是你的尊重。」
+                    <br>
+                    <br>                      
+                    　　「尊重。」特倫頓抬起頭，他不想讓爭吵傳至父母和親戚耳裡，「我們都只是家族的棋子，妳到底想要我怎麼做？」
+                    <br>
+                    <br>                      
+                    　　「我想改善我們兩人的關係。」伊洛娜眼眶濕潤仍然保持言詞理性，「如果要維持婚姻，我希望能夠互相理解，而不是任憑他人擺佈。」
+                    <br>
+                    <br>                      
+                    　　眼前女人很脆弱，正在挑戰自己從未想過的事情，反而讓特倫頓難以採取行動。他從來沒看過接近自己的人能有幾分真心誠意，所以特倫頓又問：「我該怎麼做？」
+                    <br>
+                    <br>                      
+                    　　「你可以試著信任別人和我？」伊洛娜口氣軟化下來。
+                    <br>
+                    <br>                      
+                    　　何必繞彎甚至費盡心思改善關係，特倫頓懼於伊洛娜的態度，忍不住後退一步，卻被伊洛娜牢牢捉住。因為伊洛娜說完後並沒有猶豫太久，就給了特倫頓一個溫暖又難以想像的擁抱。
+                </p>                      
+                <p class="effect-paragraph leading-loose text-justify text-lg mb-6" data-effect="blood">
+                　　靈魂的距離，總是要劃出痕跡才能刻骨銘心。可是特倫頓與伊洛娜朝夕相處，發生怪事和頭痛的頻率有增無減。畫作視線緊迫盯人，錯認信紙內容，這些異狀在他心中盤旋不去。
+                </p>
+                <p class="effect-paragraph leading-loose text-justify text-lg mb-6" data-effect="glass">
+                    　　伊登的信紙被伊洛娜小心翼翼地擱在茶几上，沾水、鋪平、壓上重物，等待紙張恢復原狀。空蕩的客廳裡，夕陽為那幅詭異的油畫染上一層血色。突然，角落傳來細微的碎裂聲，彷彿無形的手自高處推落玻璃杯——卻沒有人在那裡。
+                </p> 
+            </section>
+        </div>
+    </div>
+
+    <script>  
+        // 特效狀態  
+        const effects = {  
+            rain: false,  
+            blood: false,  
+            noise: false,  
+            glass: false  
+        };  
+            
+        let rainInterval;  
+    
+        // 創建單個雨滴  
+        function createRainDrop(isInitial = false) {  
+            const rainContainer = document.getElementById('rainContainer');  
+            const drop = document.createElement('div');  
+            drop.className = 'rain-drop';  
+            
+            // 隨機位置  
+            drop.style.left = Math.random() * 100 + 'vw';  
+            
+            // 隨機高度  
+            drop.style.height = Math.random() * 20 + 20 + 'px';  
+            
+            // 隨機透明度  
+            drop.style.opacity = Math.random() * 0.3 + 0.2;  
+            
+            // 隨機速度（1-2秒）  
+            drop.style.animationDuration = (Math.random() * 1 + 1) + 's';  
+            
+            // 如果是初始雨滴，隨機設置初始位置  
+            if (isInitial) {  
+                const randomStart = Math.random() * 100;  
+                drop.style.top = `-${randomStart}%`;  
+            }  
+            
+            rainContainer.appendChild(drop);  
+            
+            // 5秒後移除雨滴  
+            setTimeout(() => {  
+                drop.remove();  
+            }, 5000);  
+        }  
+    
+        // 初始化雨滴  
+        function initializeRain() {  
+            // 生成30個初始雨滴  
+            for(let i = 0; i < 30; i++) {  
+                createRainDrop(true);  
+            }  
+        }  
+    
+        // 雜訊效果  
+        const noiseCanvas = document.getElementById('noiseCanvas');  
+        const ctx = noiseCanvas.getContext('2d');  
+        let noiseAnimation;  
+    
+        function resizeCanvas() {  
+            noiseCanvas.width = window.innerWidth;  
+            noiseCanvas.height = window.innerHeight;  
+        }  
+    
+        function createNoise() {  
+            const imageData = ctx.createImageData(noiseCanvas.width, noiseCanvas.height);  
+            const data = imageData.data;  
+            
+            for (let i = 0; i < data.length; i += 4) {  
+                const value = Math.random() * 255;  
+                data[i] = value;  
+                data[i + 1] = value;  
+                data[i + 2] = value;  
+                data[i + 3] = 255;  
+            }  
+            
+            ctx.putImageData(imageData, 0, 0);  
+            
+            if (noiseCanvas.classList.contains('active')) {  
+                noiseAnimation = requestAnimationFrame(createNoise);  
+            }  
+        }  
+    
+        // 初始化  
+        resizeCanvas();  
+        window.addEventListener('resize', resizeCanvas);  
+    
+        // 切換特效  
+        function toggleEffect(effectName) {  
+            // 處理音效（優先處理，不參與其他效果的切換）  
+            if (effectName === 'glass') {  
+                const audio = document.getElementById('glassBreak');  
+                if (!effects.glass) {  
+                    audio.currentTime = 0;  
+                    audio.play();  
+                    effects.glass = true;  
+                    audio.onended = () => {  
+                        effects.glass = false;  
+                    };  
+                }  
+                return; // 直接返回，不執行後續的效果切換邏輯  
+            }  
+
+            // 關閉其他效果  
+            Object.keys(effects).forEach(key => {  
+                if (key !== effectName && key !== 'glass') { // 排除音效效果  
+                    effects[key] = false;  
+                    // 根據效果類型清理  
+                    if (key === 'rain') {  
+                        document.getElementById('rainContainer').classList.remove('active');  
+                        clearInterval(rainInterval);  
+                        document.getElementById('rainContainer').innerHTML = '';  
+                    } else if (key === 'blood') {  
+                        document.getElementById('bloodOverlay').classList.remove('active');  
+                    } else if (key === 'noise') {  
+                        noiseCanvas.classList.remove('active');  
+                        cancelAnimationFrame(noiseAnimation);  
+                        ctx.clearRect(0, 0, noiseCanvas.width, noiseCanvas.height);  
+                    }  
+                }  
+            });  
+    
+            // 切換當前效果  
+            effects[effectName] = !effects[effectName];  
+    
+            switch(effectName) {  
+                case 'rain':  
+                    const rainContainer = document.getElementById('rainContainer');  
+                    rainContainer.classList.toggle('active');  
+                    if (effects.rain) {  
+                        initializeRain(); // 立即生成初始雨滴  
+                        rainInterval = setInterval(() => {  
+                            createRainDrop();  
+                        }, 100); // 每100ms生成一個新雨滴  
+                    } else {  
+                        clearInterval(rainInterval);  
+                        rainContainer.innerHTML = '';  
+                    }  
+                    break;  
+    
+                case 'blood':  
+                    const bloodOverlay = document.getElementById('bloodOverlay');  
+                    bloodOverlay.classList.toggle('active');  
+                    break;  
+    
+                case 'noise':  
+                    noiseCanvas.classList.toggle('active');  
+                    if (effects.noise) {  
+                        createNoise();  
+                    } else {  
+                        cancelAnimationFrame(noiseAnimation);  
+                        ctx.clearRect(0, 0, noiseCanvas.width, noiseCanvas.height);  
+                    }  
+                    break;  
+            }  
+        }  
+    
+        // 綁定點擊事件  
+        document.querySelectorAll('.effect-paragraph').forEach(paragraph => {  
+            paragraph.addEventListener('click', function() {  
+                const effectType = this.dataset.effect;  
+                if (effectType) {  
+                    toggleEffect(effectType);  
+                }  
+            });  
+        });  
+    
+        // 控制台代理  
+        window.parent.postMessage({ action: "ready" }, "*");   
+        
+        window.console = new Proxy(console, {  
+            get(target, prop) {  
+                if (['log', 'warn', 'error'].includes(prop)) {  
+                    return new Proxy(target[prop], {  
+                        apply(fn, thisArg, args) {  
+                            fn.apply(thisArg, args);  
+                            window.parent.postMessage({   
+                                action: 'console',   
+                                type: prop,   
+                                args: args.map((arg) => {  
+                                    try {  
+                                        return JSON.stringify(arg).replace(/^["']|["']$/g, '');  
+                                    } catch (e) {  
+                                        return arg;  
+                                    }  
+                                })   
+                            }, '*');  
+                        }  
+                    });  
+                }  
+                return target[prop];  
+            }  
+        });  
+    </script></body>
+</html>
