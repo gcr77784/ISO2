@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【ISO】第三章</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        .effect-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bubbles-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            display: none;
+            background: linear-gradient(0deg, rgba(0,149,255,0.1) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        .bubbles-container.active {
+            display: block;
+        }
+
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float linear infinite;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0;
+            display: none;
+        }
+
+        .noise.active {
+            display: block;
+            opacity: 0.1;
+            animation: noise 0.2s steps(4) infinite;
+        }
+
+        .effect-paragraph {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 min-h-screen">
+    <audio id="effectSound" preload="auto">
+        <source src="https://www.soundjay.com/human/heartbeat-01a.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="effectContainer" class="effect-container">
+        <div id="bubblesContainer" class="bubbles-container"></div>
+        <canvas id="noiseCanvas" class="noise"></canvas>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/cSfsJQgU0FxMmEQenmGld.png" 
+                     alt="氣泡" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <div class="space-y-16 content-container pb-24">
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">第三章．漣漪</h2>
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　伊登閱讀伊洛娜信件的同時，會將一杯紅茶放在書桌上，細細品味表面漣漪。
+                    <br>
+                    <br>
+                    　　最近收到的信件比往常厚了些。伊登啜飲紅茶，茶面漣漪恰似信紙上字跡的起伏，伊洛娜仔細描述在新家的生活，例如夫妻一同出席晚宴，同心協力整頓宅邸和後院。特倫頓的名字在信中頻繁出現，不再如往昔隱諱。然而在信的後半段，伊洛娜提到自己最近總是感到異常疲倦，清晨伴隨陣陣噁心。
+                    <br>
+                    <br>
+                    　　伊登看見句末字跡變得停頓，有些潦草，於是立刻撥通了電話，話筒那端傳來伊洛娜的聲音。位處同一條走廊，安德列斯家族的傭人，正將盛開的白玫瑰與薰衣草插進花瓶裡，捕捉耳邊零星的對話。
+                    <br>
+                    <br>
+                    　　「真的嗎？」
+                    <br>
+                    <br>
+                    　　「如果檢測結果出來，我會陪妳去醫院。」
+                    <br>
+                    <br>
+                    　　傭人們交換眼神，將消息一同收進圍裙口袋，很快在宅邸內散播開來，畢竟這對安德列斯家族是件好事，代表兩個家族藉由血脈和臍帶緊密相連，也確保能夠延續現狀。得到姊姊同意後，伊登經常在特倫頓公務繁忙時，陪伴她前往醫院進行健康檢查。
+                    <br>
+                    <br>
+                    　　約定當天，早晨的氣溫寒冷潮濕，玻璃窗面凝結水珠。護士先為伊洛娜量測體重和血壓，記錄在產檢手冊上。接著被帶進診間，醫生仔細詢問近期有無出血、腹痛等不適症狀。確認一切正常後，伊洛娜獨自前往超音波室，伊登則經過了附屬的兒童照護區。
+                    <br>
+                    <br>
+                    　　他看見幾個孩子使用蠟筆趴在地上畫圖，藍色的天空中，彩色的圈和許多線條相連，理應是天空中滿佈彩色氣球的畫面，伊登卻好奇地問孩子：「你畫的是海洋嗎？」
+                    <br>
+                    <br>
+                    　　「不對，是天空中有很多彩色的氣球。」孩子歪了歪頭回答伊登，心想是自己畫得不好。
+                    <br>
+                    <br>
+                    　　「抱歉，原來是我看錯了。」伊登指向孩子的畫作並解釋：「我看成背景是藍色的海洋，五彩斑斕的泡泡，以及上升的波紋……」
+                </p>
+                <p class="effect-paragraph leading-loose text-justify text-lg mb-6" data-effect="bubbles">
+                    　　孩子再細看自己塗鴉，確實與伊登所描述的相似，漂浮的圖案也似乎喚起了黑暗中浮沉的記憶，因此孩子將蠟筆遞給伊登，邀請他一同作畫。伊登以自己的理解，重新詮釋了孩子們的畫作。在深藍色的海水中，波紋與氣泡隨著洋流穿梭於不同環境，時而被擠壓，時而高速流動。
+                </p>   
+                <p class="leading-loose text-justify text-lg mb-6"> 
+                    　　就像是伊洛娜眼前的螢幕。她屏住呼吸，能夠看見黑白畫面不時變化，小小的生命輪廓愈發清晰。伊洛娜為孕育新生命感到雀躍，卻又因為賀爾蒙變化感到憂心。
+                    <br>
+                    <br>
+                    　　「胎兒發育情況良好，目前約十週大，妳想要聽聽他的心跳嗎？」醫生溫和地詢問伊洛娜。
+                </p>
+                <p class="effect-paragraph leading-loose text-justify text-lg mb-6" data-effect="glass">
+                    　　伊洛娜輕輕點頭。很快，她能從儀器中聽見規律的聲音，海浪拍打礁石的節奏，令她聯想到祖父放在長廊的古老座鐘。檢查順利結束後，護士替她擦拭耦合劑，現階段只要穿好寬鬆上衣，仍然可以掩飾微微隆起的腹部。
+                </p>   
+                <p class="leading-loose text-justify text-lg mb-6">  
+                    　　走出診間時，伊洛娜看見伊登在兒童區域，和孩子一起完成了許多塗鴉並放入信封裡面，她注意到其中一張圖畫中的形狀，正好和超音波照片中胎兒的異常光影吻合，因此她下意識撫上腹部。兩人離開醫院時，天色已近黃昏，玻璃帷幕映照著夕陽暮色。
+                    <br>
+                    <br>
+                    　　伊洛娜的手指在特倫頓的電話號碼上徘徊，卻在此時收到一則簡訊。
+                </p> 
+            </section>
+        </div>
+    </div>
+
+    <script>
+        window.parent.postMessage({ action: "ready" }, "*");   
+        
+        window.console = new Proxy(console, {  
+            get(target, prop) {  
+                if (['log', 'warn', 'error'].includes(prop)) {  
+                    return new Proxy(target[prop], {  
+                        apply(fn, thisArg, args) {  
+                            fn.apply(thisArg, args);  
+                            window.parent.postMessage({   
+                                action: 'console',   
+                                type: prop,   
+                                args: args.map((arg) => {  
+                                    try {  
+                                        return JSON.stringify(arg).replace(/^["']|["']$/g, '');  
+                                    } catch (e) {  
+                                        return arg;  
+                                    }  
+                                })   
+                            }, '*');  
+                        }  
+                    });  
+                }  
+                return target[prop];  
+            }  
+        });
+
+        const effects = {
+            bubbles: false,
+            noise: false,
+            glass: false
+        };
+
+        let bubbleInterval;
+
+        function createBubble() {
+            const bubblesContainer = document.getElementById('bubblesContainer');
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            
+            const size = Math.random() * 20 + 10;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            
+            bubble.style.left = `${Math.random() * 100}vw`;
+            bubble.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            
+            bubblesContainer.appendChild(bubble);
+            
+            bubble.addEventListener('animationend', () => {
+                bubble.remove();
+            });
+        }
+
+        function initializeBubbles() {
+            if (bubbleInterval) {
+                clearInterval(bubbleInterval);
+            }
+            
+            bubbleInterval = setInterval(() => {
+                if (effects.bubbles) {
+                    createBubble();
+                } else {
+                    clearInterval(bubbleInterval);
+                }
+            }, 100);
+        }
+
+        const noiseCanvas = document.getElementById('noiseCanvas');
+        const ctx = noiseCanvas.getContext('2d');
+        let noiseAnimation;
+
+        function resizeCanvas() {
+            noiseCanvas.width = window.innerWidth;
+            noiseCanvas.height = window.innerHeight;
+        }
+
+        function createNoise() {
+            const imageData = ctx.createImageData(noiseCanvas.width, noiseCanvas.height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                const value = Math.random() * 255;
+                data[i] = value;
+                data[i + 1] = value;
+                data[i + 2] = value;
+                data[i + 3] = 255;
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            
+            if (noiseCanvas.classList.contains('active')) {
+                noiseAnimation = requestAnimationFrame(createNoise);
+            }
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function toggleEffect(effectName) {
+            if (effectName === 'glass') {
+                const audio = document.getElementById('effectSound');
+                if (!effects.glass) {
+                    audio.currentTime = 0;
+                    audio.play();
+                    effects.glass = true;
+                    audio.onended = () => {
+                        effects.glass = false;
+                    };
+                }
+                return;
+            }
+
+            Object.keys(effects).forEach(key => {
+                if (key !== effectName && key !== 'glass') {
+                    effects[key] = false;
+                    if (key === 'bubbles') {
+                        document.getElementById('bubblesContainer').classList.remove('active');
+                        if (bubbleInterval) {
+                            clearInterval(bubbleInterval);
+                        }
+                    } else if (key === 'noise') {
+                        noiseCanvas.classList.remove('active');
+                        cancelAnimationFrame(noiseAnimation);
+                        ctx.clearRect(0, 0, noiseCanvas.width, noiseCanvas.height);
+                    }
+                }
+            });
+
+            effects[effectName] = !effects[effectName];
+
+            switch(effectName) {
+                case 'bubbles':
+                    const bubblesContainer = document.getElementById('bubblesContainer');
+                    bubblesContainer.classList.toggle('active');
+                    if (effects.bubbles) {
+                        initializeBubbles();
+                    }
+                    break;
+
+                case 'noise':
+                    noiseCanvas.classList.toggle('active');
+                    if (effects.noise) {
+                        createNoise();
+                    } else {
+                        cancelAnimationFrame(noiseAnimation);
+                        ctx.clearRect(0, 0, noiseCanvas.width, noiseCanvas.height);
+                    }
+                    break;
+            }
+        }
+
+        document.querySelectorAll('.effect-paragraph').forEach(paragraph => {
+            paragraph.addEventListener('click', function() {
+                const effectType = this.dataset.effect;
+                if (effectType) {
+                    toggleEffect(effectType);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
