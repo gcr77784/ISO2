@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【ISO】第四章</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        /* 故障文字效果 */
+        @keyframes glitch-effect {
+            0% {
+                transform: translate(0) scale(1);
+                opacity: 0.7;
+                color: #ff0000;
+            }
+            20% {
+                transform: translate(-8px, 8px) scale(1);
+                opacity: 0.9;
+                color: #cc0000;
+            }
+            40% {
+                transform: translate(-8px, -8px) scale(1);
+                opacity: 1;
+                color: #ff0000;
+            }
+            60% {
+                transform: translate(4px, 4px) scale(1);
+                opacity: 0.9;
+                color: #990000;
+            }
+            80% {
+                transform: translate(4px, -4px) scale(1);
+                opacity: 0.8;
+                color: #cc0000;
+            }
+            100% {
+                transform: translate(0) scale(1);
+                opacity: 0.7;
+                color: #ff0000;
+            }
+        }
+
+        .glitch {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .glitch.active {
+            animation: text-distortion 2s infinite;
+            transform-origin: center;
+        }
+
+        .glitch.active::before,
+        .glitch.active::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch.active::before {
+            animation: glitch-effect 3s infinite;
+            color: #ff0000;
+            z-index: -2;
+            left: -2px;
+        }
+
+        .glitch.active::after {
+            animation: glitch-effect 2s infinite;
+            color: #cc0000;
+            z-index: -1;
+            left: 2px;
+        }
+
+        /* 恐怖文字效果 */
+        @keyframes horror-effect {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.02) skewX(2deg);
+                filter: blur(1px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .horror-text {
+            cursor: pointer;
+        }
+
+        .horror-text.active {
+            animation: horror-effect 4s infinite;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+            color: #ff0000;
+        }
+
+        /* 模糊文字效果 */
+        .blur-text {
+            cursor: pointer;
+            filter: blur(5px);
+            transition: filter 2s ease-out;
+        }
+
+        .blur-text.active {
+            filter: blur(0);
+        }
+
+        /* 通用效果文字樣式 */
+        .effect-text {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .effect-text:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 圖片區域 -->
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/4Fb6OseXEiLFluEc2iPtQh.png" 
+                     alt="手印" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <div class="space-y-16 content-container pb-24">
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">第四章．鏡面</h2>
+                
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　伊洛娜收到簡訊後，手機螢幕閃爍了一下。她向陪同檢查的伊登交代要去洗手間，獨自穿過醫院長廊。頭頂上的日光燈和空調發出微弱嗡鳴，緊急逃生指示燈閃爍綠光。她最後回頭看了一眼，伊登仍站在大門口，背對暮色和將暗的天際。 
+                </p>  
+                <!-- 恐怖效果 -->
+                <p class="effect-text horror-text leading-loose text-justify text-lg mb-6" data-effect="horror">
+                    　　手機的簡訊內容在伊洛娜眼前跳動，彷彿活過來，重新匯聚成不同文字。  
+                </p>
+                <p class="leading-loose text-justify text-lg mb-6"> 
+                    　　她站在洗手台前方，鏡中倒映失去血色的臉龐，水龍頭滴落的水珠逐漸粘稠，鮮紅色順著白色瓷磚蔓延。伊洛娜想要後退，雙腳卻像是被無形的力量給固定住。伊洛娜看著鏡中的自己，瞳孔因恐懼而放大，喉間感到缺氧與窒息。
+                </p>
+                <!-- 故障效果 -->
+                <p class="effect-text glitch leading-loose text-justify text-lg mb-6" data-effect="glitch" data-text="　　伊洛娜，妳肚子中的孩子肯定是邪惡的魔鬼。">
+                    　　伊洛娜，妳腹中的胎兒是天使還是惡魔？
+                </p>
+                <p class="effect-text glitch leading-loose text-justify text-lg mb-6" data-effect="glitch" data-text="　　親愛的媽媽，妳即將聽見，妳即將看見，我是什麼形狀？">
+                    　　如果擁有祂，將使妳成為傀儡，溺斃於破裂的羊水。
+                </p>
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　夕陽已經被黑暗吞噬，伊登察覺醫院大廳中的候診人潮散去，仍然沒有看見伊洛娜的身影。伊登先是詢問護士站，在保全警衛陪同下搜尋每一層樓，輕輕推開每一扇門板。走廊的日光燈忽明忽暗，腳步聲在空蕩的醫院迴盪，深夜仍然一無所獲。
+                    <br>
+                    <br>
+                    　　伊登不認為伊洛娜離開醫院，但是四處都找不到她的身影。伊登和醫院人員甚至嘗試調閱監視畫面。攝影機確實拍下了伊洛娜進入女廁之前的影像，雖然有時間差以及視線死角，不能排除伊洛娜已經從梯間離開，因此警衛建議聯絡家人再報警。
+                    <br>
+                    <br>
+                    　　伊登借用醫院警衛室的電話，聽筒傳來嘟嘟聲，他只能耐心等待連續長音後的空白，直到特倫頓應聲。
+                    <br>
+                    <br>
+                    　　「姊夫，伊洛娜回家了嗎？」伊登詢問特倫頓。
+                    <br>
+                    <br>
+                    　　「她沒有回家，而且手機沒辦法撥通。」特倫頓似乎也察覺了異狀。
+                    伊登話鋒一轉，「那麼你知道她的身體狀況如何嗎？」
+                    <br>
+                    <br>
+                    　　「伊洛娜只說最近容易頭暈和貧血……」
+                    <br>
+                    <br>
+                    　　「伊洛娜懷孕十週了，姊夫。」
+                    <br>
+                    <br>
+                    　　特倫頓聽見這件事以後陷入沉默，直到他請求伊登尋找伊洛娜，主動提供兩組全新的手機號碼。
+                    <br>
+                    <br>
+                    　　「我會繼續尋找伊洛娜，隨時和我保持聯絡，姊夫。」伊登的口氣緩和下來，表示自己隔天仍然會前往醫院周邊尋找伊洛娜。
+                    <br>
+                    <br>
+                    　　夜深人靜，特倫頓獨自坐在書房，取出祖父贈與的骨質袖扣。骨頭經過研磨和拋光以後，質地與象牙十分接近，他知道福爾曼家族覬覦安德拉斯家族的收藏，因此，這場婚姻不過是一場交易——參與秘密集會的富人相傳天使遺骸與血液可以趨吉避凶。
+                    <br>
+                    <br>
+                    　　所以，令特倫頓恐懼的幻覺並非假象，而是某種邪惡的徵兆？
+                    <br>
+                    <br>
+                    　　當晚，特倫頓夢見伊洛娜站在教堂當中。她的聲音時而清晰、時而模糊，撫摸微微隆起的腹部向嬰孩傾訴。特倫頓驚醒時，胸口彷彿被千斤巨石壓迫。他踉蹌走向客廳，牆上的油畫不知何時已經改變，原本的伊洛娜消失無蹤，取而代之的是一片深不見底的漆黑海洋。
+                    <br>
+                    <br>
+                    　　特倫頓急忙從祖父遺囑中找出一份泛黃名單，密密麻麻紀錄名為聖骸倡議的秘密集會，聯合家族名單以及驅魔人的聯絡方式。他匆匆記下幾個電話號碼，趕在清晨的濃霧中離開宅邸。 畢竟在這個世界上，有許多未知的恐懼潛伏在表象之下。
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.effect-text').forEach(element => {
+            element.addEventListener('click', function() {
+                const effectType = this.dataset.effect;
+                
+                if (effectType === 'blur') {
+                    this.classList.toggle('active');
+                } else {
+                    // 移除其他段落的效果
+                    document.querySelectorAll(`.${effectType}`).forEach(el => {
+                        if (el !== this) el.classList.remove('active');
+                    });
+                    this.classList.toggle('active');
+                }
+            });
+        });
+
+        // 控制台代理
+        window.parent.postMessage({ action: "ready" }, "*");
+        
+        window.console = new Proxy(console, {
+            get(target, prop) {
+                if (['log', 'warn', 'error'].includes(prop)) {
+                    return new Proxy(target[prop], {
+                        apply(fn, thisArg, args) {
+                            fn.apply(thisArg, args);
+                            window.parent.postMessage({
+                                action: 'console',
+                                type: prop,
+                                args: args.map((arg) => {
+                                    try {
+                                        return JSON.stringify(arg).replace(/^["']|["']$/g, '');
+                                    } catch (e) {
+                                        return arg;
+                                    }
+                                })
+                            }, '*');
+                        }
+                    });
+                }
+                return target[prop];
+            }
+        });
+    </script>
+</body>
+</html>
