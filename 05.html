@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【ISO】第五章</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        /* 霧化文字效果 */
+        .fog-text {
+            cursor: pointer;
+            transition: all 0.8s ease;
+        }
+
+        .fog-text.active {
+            filter: blur(4px);
+            opacity: 0.7;
+            color: rgba(200, 200, 200, 0.6);
+        }
+
+        /* 整頁霧氣效果 */
+        #page-fog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 100;
+            transition: opacity 2s ease;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cfilter id='fogEffect' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.01' numOctaves='4' seed='1' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0' in='noise' result='coloredNoise'/%3E%3CfeComponentTransfer result='fog'%3E%3CfeFuncR type='linear' slope='5' intercept='0'/%3E%3CfeFuncG type='linear' slope='5' intercept='0'/%3E%3CfeFuncB type='linear' slope='5' intercept='0'/%3E%3CfeFuncA type='linear' slope='0.2' intercept='0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3C/defs%3E%3Crect width='100%25' height='100%25' filter='url(%23fogEffect)' fill='rgba(200,200,220,0.2)'/%3E%3C/svg%3E");
+            background-size: cover;
+        }
+
+        #page-fog.active {
+            opacity: 0.8;
+            animation: fogMove 30s infinite alternate ease-in-out;
+        }
+
+        @keyframes fogMove {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 25% 25%; }
+            50% { background-position: 50% 50%; }
+            75% { background-position: 75% 25%; }
+            100% { background-position: 100% 0%; }
+        }
+
+        /* 通用效果文字樣式 */
+        .effect-text {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .effect-text:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 min-h-screen">
+    <!-- 整頁霧氣效果層 -->
+    <div id="page-fog"></div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 圖片區域 -->
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/3mfiK8achGTWSYIfPUFjYJ.png" 
+                     alt="霧氣公園" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <div class="space-y-16 content-container pb-24">
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">第五章．聖骸</h2>
+                
+                <!-- 鼓掌聲效果 -->
+                <p class="effect-text leading-loose text-justify text-lg mb-6" data-effect="applause-sound">
+                    　　【致聖骸倡議的親愛守密人】  
+                </p>
+
+               <!-- 一般文字 -->
+               <p class="leading-loose text-justify text-lg mb-6">
+                　　它們早在人類出現前就已存在。  
+                <br>
+                　　比我們的歷史悠久。  
+                <br>
+                　　比群星還要古老。  
+                <br>
+                　　沒有欲望，卻永不停歇。  
+                <br>
+                <br>
+                　　這些存在的根源可能來自更高維度或宇宙彼方，透過精神或幻覺滲透至我們的現實。你也許將它們視為邪靈、鬼魅或惡魔的化身——無論你是否相信，它們確實存在，並持續對我們造成實質的物理與精神傷害。  
+                <br>
+                <br>
+                　　而且，它們像是病毒傳播，記述這類異常現象的文字都會產生認知危害。你理應看見、聽見、熟知於大腦的常識，在記憶中被扭曲成奇形怪狀的意義，或者讓人遺忘，因此我們只能靠口述和錄音傳達此事。
+                <br>
+                <br>           
+                　　它會不斷在目標對象週圍弄些類似靈騷的反物理現象吸引注意力，讓人察覺並試圖理解它的存在，接著通過反射面附身，佔據人類的身體後榨取其精神——幸好我們擁有能夠自保，抗拒侵占行動的方式。
+                <br>
+                <br>
+                　　那就是天使的骨頭與血液。這些天使出生時伴隨先天缺陷，透過反射面能夠看見頭頂上有光環，彷彿被神明刻意遺留在人世。只要我們配戴天使骸骨，可以讓邪靈近身時仍保持思緒清明，潑撒和飲用天使的血液，就能夠驅趕侵占人體的邪靈。
+                <br>
+                <br>
+                　　這些寶物是我們漂浮在認知汪洋中的唯一浮木，而您，正是持有這根浮木的守護者。
+                <br>
+                <br>
+                　　這些訊息在社會散播時，影響力會呈指數增長。當複數人的意識與它產生共鳴、認同，他們便集體拋棄世俗的認知與法律道德，如同獻身給魔鬼的狂信者，成為它們的口舌與手腳。小至一棟房子，大至一處城鎮，人群同時獲知不可名狀的存在時，就會引發黑色帷幕現象。
+                <br>
+                <br>
+                　　特倫頓回憶起過去參與集會時聽到的內容，當時不以為意。只是以為祖父迷信新興宗教，沒想到家族與聖骸倡議的淵源已有三代，直到親眼目睹幻覺和伊洛娜失蹤，他不得不面對事實。這些存在確實會製造懸浮的物體、倒流的液體、逆行的時鐘，誘使人類望向深淵。 
+                <br>
+                <br>
+                　　它們像是病毒傳播，記述這類異常現象的文字會產生認知危害，因此所有書信媒介都不可信。如果要調查，充分理解守密人知識的伊登就足以信任，因為伊登對伊洛娜的關心真切無比。但那雙紫色的眼睛和畫作卻令他感到不安，因此特倫頓選擇另尋高就，不僅聯絡祖父遺囑中的泛黃名單，並尋求陌生驅魔人的聯絡方式。
+                </p>
+                <!-- 整頁霧氣效果 -->
+                <p class="effect-text leading-loose text-justify text-lg mb-6" data-effect="page-fog">
+                　　他在清晨時來到公園，除了自己踩碎落葉的步伐聲，白色霧氣吞噬並隔絕城市所有動靜。樹木頂部被掩蓋，只能看見樹根的輪廓與草地，週邊設施若隱若現，因此特倫頓看見坐在長椅上的神父時，兩人距離已經非常接近。
+                </p>
+               <!-- 一般文字 -->
+               <p class="leading-loose text-justify text-lg mb-6">                
+                　　神父作為驅魔人有顯著的怪異特徵，配戴眼罩，膝上有一尊陶瓷洋娃娃。特倫頓停下腳步，緩了緩急促的呼吸遞出名片。既然有求於人，他嘗試說明伊洛娜的失蹤經過，以及家中畫作出現異狀。但是說話時，神父臂彎中的陶瓷洋娃娃眼睛始終直視自己。
+                <br>
+                <br>
+                　　「還有發生過其他事件嗎？」神父思索後詢問。
+                <br>
+                <br>
+                　　特倫頓猶豫是否該信任素未謀面的神父，片刻後開口： 「我曾看錯伊登寄給伊洛娜的信件。」
+                <br>
+                <br>
+                　　「如果你還留著信件，也許我能確認看看。」神父表情顯著變化後又詢問：「畫作是否有簽名？」 
+                <br>
+                <br>
+                　　「我不確定，」特倫頓皺起眉頭，「但是畫作背景上有很多漩渦般的紋路，也許藏在裡頭。」  
+                </p>
+                <!-- 蜜蜂嗡嗡聲效果 -->
+                <p class="effect-text leading-loose text-justify text-lg mb-6" data-effect="bee-sound">
+                    　　神父緩緩點頭，陶瓷洋娃娃的頭顱似乎也隨之晃動，特倫頓不確定是不是錯覺。
+                </p>
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">   
+                　　「畫作和信件確實有必要檢查，如果你有需要，我也可以前往醫院。」神父回覆時，手指總是輕撫洋娃娃的陶瓷臉頰，特倫頓不喜歡洋娃娃，每每經過玩具店櫥窗就像是有無數視線。他和神父談話時，霧氣中有模糊的黑色人影漸漸成形，卻又很快消失在公園另一側，因此特倫頓低頭確認腕錶，清晨六點，如果是散步未免太早了。
+                <br>
+                <br>               
+                　　「我和你說的事情不能告訴任何人。」特倫頓放低音量，神父和他的陶瓷洋娃娃恐怕會引起側目，忍不住瞥了一眼，但是他們都是金髮，身高也差不多。
+                <br>
+                <br>
+                　　「午夜十二點再穿便服過來吧，白天會有家族親戚和社區巡邏警衛，深夜則是電子保全。」
+                 </p>
+                <!-- 霧化文字效果 -->
+                <p class="effect-text fog-text leading-loose text-justify text-lg mb-6" data-effect="fog-text">
+                    　　雙方很快約定當晚檢查畫作，屆時再詳談。離開時，特倫頓忍不住回頭張望——模糊人影似乎仍在公園中的霧氣徘徊，監視他的一舉一動。
+                </p> 
+
+
+            </section>
+        </div>
+    </div>
+
+    <!-- 音效元素 -->
+    <audio id="bee-sound" preload="auto">
+        <source src="https://gcr77784.github.io/ISO2/584670_bee_norah.wav" type="audio/wav">
+    </audio>
+    <audio id="applause-sound" preload="auto">
+        <source src="https://gcr77784.github.io/ISO2/applauding.wav" type="audio/wav">
+    </audio>
+
+    <script>
+        // 準備音效元素
+        const beeSound = document.getElementById('bee-sound');
+        const applauseSound = document.getElementById('applause-sound');
+        const pageFog = document.getElementById('page-fog');
+
+        // 設置所有效果文字的點擊事件
+        document.querySelectorAll('.effect-text').forEach(element => {
+            element.addEventListener('click', function() {
+                const effectType = this.dataset.effect;
+                
+                // 根據效果類型執行相應的操作
+                switch(effectType) {
+                    case 'fog-text':
+                        this.classList.toggle('active');
+                        break;
+                    case 'bee-sound':
+                        // 播放蜜蜂聲
+                        beeSound.currentTime = 0;
+                        beeSound.play();
+                        break;
+                    case 'applause-sound':
+                        // 播放鼓掌聲
+                        applauseSound.currentTime = 0;
+                        applauseSound.play();
+                        break;
+                    case 'page-fog':
+                        // 切換整頁霧氣效果
+                        pageFog.classList.toggle('active');
+                        break;
+                }
+            });
+        });
+
+        // 控制台代理
+        window.parent.postMessage({ action: "ready" }, "*");
+        
+        window.console = new Proxy(console, {
+            get(target, prop) {
+                if (['log', 'warn', 'error'].includes(prop)) {
+                    return new Proxy(target[prop], {
+                        apply(fn, thisArg, args) {
+                            fn.apply(thisArg, args);
+                            window.parent.postMessage({
+                                action: 'console',
+                                type: prop,
+                                args: args.map((arg) => {
+                                    try {
+                                        return JSON.stringify(arg).replace(/^["']|["']$/g, '');
+                                    } catch (e) {
+                                        return arg;
+                                    }
+                                })
+                            }, '*');
+                        }
+                    });
+                }
+                return target[prop];
+            }
+        });
+    </script>
+</body>
+</html>
