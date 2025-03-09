@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【ISO】第六章</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 隨機字消失效果 */
+        .random-disappear {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .random-disappear .char {
+            display: inline-block;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .random-disappear .char.hidden {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        /* 呼吸效果 */
+        @keyframes breathing {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .breathing-text {
+            cursor: pointer;
+        }
+
+        .breathing-text.active {
+            animation: breathing 4s infinite ease-in-out;
+        }
+
+        /* 漣漪文字效果 */
+        .ripple-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .text-ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 4.5s ease-out forwards; /* 縮短動畫時間 */
+            opacity: 0;
+            color: rgba(180, 180, 180, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 10;
+            text-align: center;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            40% {
+                opacity: 0.3;
+            }
+            80% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: scale(8); /* 減小最大擴散尺寸 */
+                opacity: 0;
+            }
+        }
+
+        /* 通用效果文字樣式 */
+        .effect-text {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .effect-text:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 min-h-screen">
+    <div class="ripple-container"></div>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
+        <!-- 圖片區域 -->
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/1Lvunmv9X9cm8vFZRKOato.png" 
+                     alt="胚胎" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <div class="space-y-16 content-container pb-24">
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">第六章．血緣</h2>
+                
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　特倫頓離開公園，內心的恐懼驅使他在外流連，駛過那些與伊洛娜生活軌跡交織的地點，最終停在她失蹤的醫院前方。醫院從外側看不出異狀，走廊窗戶能看見護理師攙扶病患慢步前行，還有大門候診區親屬擔憂的神情。特倫頓此時撥打伊洛娜個手機確認，仍然沒有任何回應。
+                </p>  
+                <!-- 隨機字消失效果 -->
+                <p class="effect-text random-disappear leading-loose text-justify text-lg mb-6" data-effect="random-disappear">
+                    　　特倫頓毫無收穫，離開前沒有發現伊登身處醫院高樓層向外窺視，發現駕車便掩上了窗簾。
+                </p>
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　神父履行約定，在午夜十二點拜訪福爾曼家族所居住的社區。特倫頓以為對方會被警衛攔住，特地在社區門口等待，卻迎面走來一個不起眼的普通人，綠色虹膜的金髮男子。
+                    <br>
+                    <br>
+                    　　特倫頓先是警惕，又疑惑地詢問：「你是誰？」
+                    <br>
+                    <br>
+                    　　「安東尼奧，而且我們早上才會面過，福爾曼先生。」安東尼奧向對方自我介紹，將有些重量的側肩包換了個位置。
+                    <br>
+                    <br>
+                    　　雖然穿著便服是自己的要求，神父雙眼健全為什麼要裝神弄鬼戴著眼罩？特倫頓果然厭惡宗教份子。就算如此，他仍轉頭示意對方跟上。兩人沿著安靜的社區步道前進，抵達特倫頓與伊洛娜所居住的獨棟公寓，相比社區其他建築並不起眼，安東尼奧進入大門前檢查了信箱，裡面有幾張無法辨識的紙屑。
+                    <br>
+                    <br>
+                    　　很快，他們穿越玄關來到客廳一同看見壁爐上的掛畫，安東尼奧口袋藏有骨瓷碎片以及裝有血液的玻璃管，處理前謹慎地問道：「你看見的畫作是什麼模樣？」
+                    <br>
+                    <br>
+                    　　「一片漆黑，什麼也沒有。」特倫頓還是沒看見畫中的伊洛娜。
+                    <br>
+                    <br>
+                    　　安東尼奧打開玻璃管的蓋子，要求特倫頓喝下又再度詢問：「現在呢？」
+                    <br>
+                    <br>
+                    　　特倫頓照做了，血液的腥味在嘴裡瀰漫。畫作確實和第一天來到客廳時相同，是伊洛娜的肖像，他為什麼會認為自己沒看見？
+                    <br>
+                    <br>
+                    　　安東尼奧要求特倫頓喝下戴環者血液，才發現特倫頓的袖扣也是戴環者骨頭所製，忍不住提醒：「你如果覺得異常，可以先摸摸袖子上的裝飾再觀察情況。」
+                    <br>
+                    <br>
+                    　　「誰准許你命令我？」特倫頓快速抽回安東尼奧抓去檢查的西裝袖，「只要找回伊洛娜就會給你豐厚報酬。」
+                    <br>
+                    <br>
+                    　　「我沒有這個意思，況且夫人的安危不該以金錢衡量。」安東尼奧站在畫作前方觀察，關切地催促：「你能不能找出伊登的信件？我想檢查一下。」
+                    <br>
+                    <br>
+                    　　特倫頓眼中閃過一絲厭惡，意識到自己不該與神父多費口舌，立即將袖扣擰下緊緊捏在手心，轉身走向書房尋找信件。
+                    <br>
+                    <br>
+                </p>  
+                <!-- 呼吸效果 -->
+                <p class="effect-text breathing-text leading-loose text-justify text-lg mb-6" data-effect="breathing">
+                    　　書房門闔上後，安東尼奧的目光重新回到那幅令人不安的畫作。他湊近觀察發現確實有異，當他盯著背景會感到漩渦正在晃動，再仔細看，才發現部分漩渦中有一圈又一圈細小的文字。
+                </p>
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　安東尼奧的指頭輕輕掠過畫框，沾上一層厚厚的灰塵，肖像平時被忽略已久。加上特倫頓冷淡疏離的態度，不難猜測伊洛娜的婚姻關係。他的思緒一閃而過——安德列斯家族與聖骸倡議的淵源可追溯至十九世紀，相較之下，福爾曼家族頂多是集會中的新興富裕階層。
+                    <br>
+                    <br>
+                    　　取得信件以後，不管是畫作還是書信文字，內容多是伊登表達思念或祝福的話語。既然沒有提及或描述不可名狀，為什麼還會發生認知汙染的現象？除非伊登所傾訴的對象並不是伊洛娜，而最新的信件中提到了預產期。               
+                    <br>
+                    <br>
+                    　　安東尼奧將書信還給特倫頓，又追問了伊洛娜的懷孕的過程。
+                    <br>
+                    <br>
+                    　　當安東尼奧提到伊洛娜懷孕時，特倫頓的手指不自覺地握緊了袖扣，指節因用力而泛白，不自然的神情從他眼中一閃而過，卻又很快恢復冷靜。
+                    <br>
+                    <br>
+                    　　「你怎麼知道她懷孕的事？」特倫頓的聲音比平時略微高了一度。唯獨這件事，他無法向家族澄清也難以啟齒，甚至認為這是安德列斯家族的陰謀才會選擇求助外人。
+                </p>  
+                <!-- 漣漪背景效果 -->
+                <p class="effect-text ripple-text leading-loose text-justify text-lg mb-6" data-effect="ripple">
+                    　　「我們根本沒有同房共寢，伊洛娜懷的到底是誰的孩子？」
+                </p>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // 處理隨機字消失效果
+        document.querySelectorAll('.random-disappear').forEach(element => {
+            // 將文本分割成字符並包裝在span中
+            const text = element.textContent;
+            element.textContent = '';
+            for (const char of text) {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char;
+                element.appendChild(span);
+            }
+        });
+
+        // 漣漪效果文字內容
+        const rippleText = "光與影是對立的存在，卻又互相依賴，沒有夜晚就無法迎來晨光。神明引導我們延續生命，製造有缺陷的軀殼。人類的命運因此繁盛，生生不息。";
+        const rippleContainer = document.querySelector('.ripple-container');
+        
+        // 標記是否正在播放漣漪效果
+        let isPlayingRipple = false;
+
+        document.querySelectorAll('.effect-text').forEach(element => {
+            element.addEventListener('click', function(event) {
+                const effectType = this.dataset.effect;
+                
+                if (effectType === 'breathing') {
+                    this.classList.toggle('active');
+                } 
+                else if (effectType === 'random-disappear') {
+                    const chars = this.querySelectorAll('.char');
+                    // 隨機選擇30%的字符
+                    const charsArray = Array.from(chars);
+                    const numToHide = Math.floor(charsArray.length * 0.3);
+                    
+                    // 先重置所有字符
+                    charsArray.forEach(char => char.classList.remove('hidden'));
+                    
+                    // 隨機選擇字符並隱藏
+                    const shuffled = charsArray.sort(() => 0.5 - Math.random());
+                    shuffled.slice(0, numToHide).forEach(char => {
+                        char.classList.add('hidden');
+                    });
+                    
+                    // 5秒後恢復
+                    setTimeout(() => {
+                        charsArray.forEach(char => char.classList.remove('hidden'));
+                    }, 5000);
+                }
+                else if (effectType === 'ripple') {
+                    // 防止連續點擊重複觸發
+                    if (isPlayingRipple) return;
+                    
+                    // 標記為正在播放
+                    isPlayingRipple = true;
+                    
+                    // 第一次播放漣漪效果
+                    playRippleEffect();
+                    
+                    // 延遲後播放第二次漣漪效果
+                    setTimeout(() => {
+                        playRippleEffect();
+                        
+                        // 第二次播放完成後重置標記
+                        setTimeout(() => {
+                            isPlayingRipple = false;
+                        }, 5000);
+                    }, 5000);
+                }
+            });
+        });
+
+        // 播放漣漪效果的函數
+        function playRippleEffect() {
+            // 生成3到4個隨機位置的漣漪
+            const numRipples = Math.floor(Math.random() * 2) + 3; // 3或4個漣漪
+            
+            // 隨機生成位置
+            const positions = [];
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            for (let i = 0; i < numRipples; i++) {
+                positions.push({
+                    x: windowWidth * (0.3 + Math.random() * 0.4),
+                    y: windowHeight * (0.2 + Math.random() * 0.6)
+                });
+            }
+            
+            // 在每個位置創建多個漣漪
+            positions.forEach(pos => {
+                for (let i = 0; i < 4; i++) {
+                    setTimeout(() => {
+                        createRipple(pos.x, pos.y);
+                    }, i * 250);
+                }
+            });
+        }
+
+        // 創建漣漪函數
+        function createRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.className = 'text-ripple';
+            
+            // 設置漣漪文字內容（隨機起始位置）
+            const startPos = Math.floor(Math.random() * Math.max(1, rippleText.length - 15));
+            const textLength = Math.min(15, rippleText.length - startPos);
+            ripple.textContent = rippleText.substring(startPos, startPos + textLength);
+            
+            // 設置漣漪位置
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            // 隨機大小和延遲
+            const size = 30 + Math.random() * 20;
+            ripple.style.width = `${size}px`;
+            ripple.style.height = `${size}px`;
+            
+            // 小幅隨機偏移
+            const offsetX = (Math.random() - 0.5) * 40;
+            const offsetY = (Math.random() - 0.5) * 40;
+            ripple.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(0)`;
+            
+            rippleContainer.appendChild(ripple);
+            
+            // 動畫結束後移除元素
+            setTimeout(() => {
+                ripple.remove();
+            }, 4500);
+        }
+
+        // 控制台代理
+        window.parent.postMessage({ action: "ready" }, "*");
+        
+        window.console = new Proxy(console, {
+            get(target, prop) {
+                if (['log', 'warn', 'error'].includes(prop)) {
+                    return new Proxy(target[prop], {
+                        apply(fn, thisArg, args) {
+                            fn.apply(thisArg, args);
+                            window.parent.postMessage({
+                                action: 'console',
+                                type: prop,
+                                args: args.map((arg) => {
+                                    try {
+                                        return JSON.stringify(arg).replace(/^["']|["']$/g, '');
+                                    } catch (e) {
+                                        return arg;
+                                    }
+                                })
+                            }, '*');
+                        }
+                    });
+                }
+                return target[prop];
+            }
+        });
+    </script>
+</body>
+</html>
