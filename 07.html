@@ -1,0 +1,411 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【ISO】第七章</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        /* 通用效果文字樣式 */
+        .effect-text {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .effect-text:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        /* 私語音效效果 */
+        .whisper-text {
+            position: relative;
+        }
+
+        .whisper-text.active {
+            color: #c5c5c5;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        /* 放大鏡效果 */
+        .magnify-text {
+            position: relative;
+        }
+
+        .magnify-lens {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+            box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .magnify-content {
+            position: absolute;
+            transform-origin: center;
+            transform: scale(1.5);
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+
+        /* 黑色遮色片效果 */
+        .blackout-text {
+            position: relative;
+        }
+
+        .blackout-mask {
+            position: fixed;
+            width: 3000px;
+            height: 3000px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+            background: radial-gradient(
+                circle at center,
+                transparent 0%,
+                transparent 300px,
+                rgba(0, 0, 0, 0.85) 301px,
+                black 600px
+            );
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 圖片區域 -->
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/3FiDs9Va9wPbSuCwdmob0T.png" 
+                     alt="放大鏡" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <div class="space-y-16 content-container pb-24">
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">第七章．偽裝</h2>
+                
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　特倫頓不過是福爾曼家族的棋子，家醜不可外揚，所以沒有得到支援而且總是被蒙在鼓裡。
+                    <br>
+                    <br>
+                    　　伊登與特倫頓連絡斷斷續續，伊洛娜失蹤的理由看似合理，安德列斯家族卻遲遲不願報警，因為他們也認同家醜不可外揚。調查四處碰壁，比起試探家族聯姻的理由，特倫頓更在乎伊洛娜的想法。她現在過得好嗎？只是浮現這個念頭就令人詫異。
+                    <br>
+                    <br>
+                    　　只要試圖報警，雙方家族就會壓制警方調查——特倫頓與伊登都認同這個結論。
+                    <br>
+                    <br>
+                    　　雖然伊登總是輕飄飄地帶過搜查方向，相對地，他會與特倫頓分享伊洛娜過去。說來可笑，特倫頓似乎藉此認識了真正的伊洛娜，緩解幾分思念之情。
+                </p>
+                <!-- 私語音效效果 -->
+                <p class="effect-text whisper-text leading-loose text-justify text-lg mb-6" data-effect="whisper">
+                    　　例如伊洛娜喜歡祖父的橄欖色羊毛地毯，曾拉著伊登一起偷偷地在上面打滾。但是淑女不能做這樣的事情，所以他們會被公開懲罰，在所有傭人面前道歉並發誓不再犯。如果背棄約定，實際上也沒有任何損失，只是傭人的眼神和竊竊私語會產生變化。
+                </p>
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">        
+                    　　也許是安德列斯家族刻意為之，姊弟從小便在這樣的環境中成長，伊洛娜原本是個性格活潑與強勢的女孩，在這樣的環境下漸漸學會儀態，仰慕自由卻身不由己。
+                </p>
+               <!-- 黑色遮色片效果 -->
+                <p class="effect-text blackout-text leading-loose text-justify text-lg mb-6" data-effect="blackout">                
+                    　　特倫頓避免自己和伊登失去聯絡，就算對方釋出善意，他也明白了這些全部都是謊言。
+                </p>
+                <p class="leading-loose text-justify text-lg mb-6">                  
+                    　　最終，特倫頓選擇與安東尼奧合作。經過剝絲抽繭，真相赤裸裸地浮出水面。伊洛娜和伊登的信件本就意圖使特倫頓認知錯亂，不僅有扭曲變形的文字，家中茶葉甚至摻入微量毒素。事實顯而易見，伊洛娜根本不愛他，一切都是安德拉斯家族的陰謀，也是福爾曼家族貪婪所必須擔負的風險。
+                    <br>
+                    <br>
+                    　　特倫頓甚至准許安東尼奧佯裝自己出席聖骸倡議集會，更進一步調查安德列斯家族。兩人正好外表相似——擁有金髮與綠色眼睛，加上特倫頓極少參與集會交流，個性尖銳導致熟識成員寥寥無幾。
+                    <br>
+                    <br>
+                    　　「就算被識破也無妨，」特倫頓將徽章交給安東尼奧，「你持有我的授權與證物，他們不敢輕舉妄動。」 
+                    <br>
+                    <br>
+                    　　虔誠的神父也擁有秘密，這些秘密正是安東尼奧與特倫頓合作的理由。
+                    <br>
+                    <br>
+                    　　安東尼奧在宴會場合上看見伊登，察覺那雙紫色眼睛一深一淺。與戴環者被美譽為天使不同，據說異色瞳會招來邪靈，是它們合適的容器。激進的驅魔人盛怒地主張殺戮，寧願主動剔除這些不吉的象徵。安德列斯家族對此心知肚明，卻公開展示「異常」，彷彿在炫耀自己的特殊身份。  
+                    <br>
+                    <br>
+                    　　伊登初次遇見代替特倫頓參與集會的安東尼奧，視線停留於柔和眼神與不同於特倫頓的站姿。他嘴角勾起不可察覺的弧度，興味盎然地詢問：「您認為我會受到不平等的待遇嗎？」  
+                    <br>
+                    <br>
+                    　　「不，我只是覺得低調一點比較安全。」安東尼奧指向戴了變色片的右眼。
+                    <br>
+                    <br>
+                    　　「我每次出門都會有保鑣陪伴，因此沒有人能夠對我造成威脅……」伊登猶豫片刻，將神父稱謂更正為福爾曼先生，側頭提醒：「和您不一樣。」
+                    <br>
+                    <br>
+                    　　「安德列斯家族擅於誕下有生理缺陷的孩子，累積了百年的收藏。」安東尼奧無視伊登好奇的視線，繼續自己的推論：「一般人避之唯恐不及，但是你可以確保伊洛娜誕下的孩子血緣正統。」
+                    <br>
+                    <br>
+                    　　「所以姊夫他，難道因此愛上了伊洛娜？」伊登語氣中帶著一絲驚訝，「請放心，伊洛娜被安置在另一間醫院，有最好的醫療團隊照顧她與腹中孩子，現在過得很好。」他觀察安東尼奧臉色瞬變又迅速鎮定，接著補充：「福爾曼家族會努力爭取，不過是想藉此取得伊洛娜誕下的孩子，所有人都披著假惺惺的笑容……」  
+                     </p>  
+                     <p class="effect-text magnify-text leading-loose text-justify text-lg mb-6" data-effect="magnify">
+                    　　「所以我們沒有理由配合福爾曼家族，還是您能讓我們相信？」伊登說完從西裝內袋中取出物品，是一封伊洛娜屬名給特倫頓的信件。
+                 </p>
+            </section>
+        </div>
+    </div>
+
+    <!-- 特效元素 -->
+    <div id="magnify-container"></div>
+    <div class="blackout-mask"></div>
+    
+    <!-- 音效元素 -->
+    <audio id="whisper-sound" preload="auto">
+        <source src="https://gcr77784.github.io/ISO2/female-babble-45052.mp3" type="audio/mpeg">
+        您的瀏覽器不支援音訊元素。
+    </audio>
+
+    <script>
+        // 音效播放器
+        const whisperSound = document.getElementById('whisper-sound');
+        whisperSound.volume = 1.0; // 確保音量是最大的
+        
+        // 放大鏡容器
+        const magnifyContainer = document.getElementById('magnify-container');
+        let magnifyActive = false;
+        let magnifyInterval = null;
+        
+        // 黑色遮色片元素
+        const blackoutMask = document.querySelector('.blackout-mask');
+        let blackoutActive = false;
+        
+        // 當前活動的效果類型
+        let activeEffectType = null;
+        
+        // 網頁內容容器
+        const contentContainer = document.querySelector('.content-container');
+        
+        // 為每個效果文字添加點擊事件
+        document.querySelectorAll('.effect-text').forEach(element => {
+            element.addEventListener('click', function() {
+                const effectType = this.dataset.effect;
+                
+                // 如果點擊的是已經活動的效果，則關閉它
+                if (activeEffectType === effectType) {
+                    deactivateEffect(effectType);
+                    activeEffectType = null;
+                    this.classList.remove('active');
+                    return;
+                }
+                
+                // 如果有其他活動效果，先關閉它
+                if (activeEffectType) {
+                    deactivateEffect(activeEffectType);
+                    document.querySelector(`.${activeEffectType}-text.active`).classList.remove('active');
+                }
+                
+                // 啟動當前點擊的效果
+                activateEffect(effectType);
+                activeEffectType = effectType;
+                this.classList.add('active');
+            });
+        });
+        
+        // 啟動特定效果
+        function activateEffect(effectType) {
+            switch(effectType) {
+                case 'whisper':
+                    // 播放私語音效
+                    try {
+                        whisperSound.currentTime = 0;
+                        const playPromise = whisperSound.play();
+                        
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.error("音效播放失敗:", error);
+                            });
+                        }
+                    } catch (error) {
+                        console.error("音效播放出錯:", error);
+                    }
+                    break;
+                    
+                case 'magnify':
+                    // 啟動隨機放大鏡效果
+                    magnifyActive = true;
+                    
+                    // 清空現有的放大鏡
+                    magnifyContainer.innerHTML = '';
+                    
+                    // 創建頁面克隆，供放大鏡使用
+                    const pageClone = document.body.cloneNode(true);
+                    
+                    // 啟動放大鏡出現間隔
+                    magnifyInterval = setInterval(() => {
+                        if (!magnifyActive) {
+                            clearInterval(magnifyInterval);
+                            return;
+                        }
+                        
+                        // 創建新的放大鏡元素
+                        createRandomMagnifier(pageClone);
+                    }, 1500); // 每1.5秒創建一個新的放大鏡
+                    
+                    // 初始創建一些放大鏡
+                    for (let i = 0; i < 3; i++) {
+                        setTimeout(() => {
+                            if (magnifyActive) {
+                                createRandomMagnifier(pageClone);
+                            }
+                        }, i * 500);
+                    }
+                    break;
+                    
+                case 'blackout':
+                    // 啟動黑色遮色片
+                    blackoutActive = true;
+                    blackoutMask.style.display = 'block';
+                    
+                    // 添加滑鼠移動事件
+                    document.addEventListener('mousemove', handleBlackoutMove);
+                    break;
+            }
+        }
+        
+        // 關閉特定效果
+        function deactivateEffect(effectType) {
+            switch(effectType) {
+                case 'whisper':
+                    // 停止私語音效
+                    whisperSound.pause();
+                    break;
+                    
+                case 'magnify':
+                    // 關閉放大鏡效果
+                    magnifyActive = false;
+                    
+                    // 清除定時器
+                    if (magnifyInterval) {
+                        clearInterval(magnifyInterval);
+                        magnifyInterval = null;
+                    }
+                    
+                    // 移除所有放大鏡
+                    const lenses = document.querySelectorAll('.magnify-lens');
+                    lenses.forEach(lens => {
+                        lens.style.opacity = 0;
+                        setTimeout(() => {
+                            if (lens.parentNode) {
+                                lens.parentNode.removeChild(lens);
+                            }
+                        }, 1000);
+                    });
+                    break;
+                    
+                case 'blackout':
+                    // 關閉黑色遮色片
+                    blackoutActive = false;
+                    blackoutMask.style.display = 'none';
+                    document.removeEventListener('mousemove', handleBlackoutMove);
+                    break;
+            }
+        }
+        
+        // 創建隨機位置的放大鏡
+        function createRandomMagnifier(pageClone) {
+            // 取得視窗尺寸
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // 生成隨機位置
+            const x = Math.floor(Math.random() * (windowWidth - 200));
+            const y = Math.floor(Math.random() * (windowHeight - 200));
+            
+            // 創建放大鏡元素
+            const lens = document.createElement('div');
+            lens.classList.add('magnify-lens');
+            lens.style.left = `${x}px`;
+            lens.style.top = `${y}px`;
+            
+            // 創建內容克隆
+            const content = document.createElement('div');
+            content.classList.add('magnify-content');
+            content.style.left = `${-x}px`;
+            content.style.top = `${-y}px`;
+            
+            // 添加頁面克隆
+            const cloneContent = pageClone.cloneNode(true);
+            content.appendChild(cloneContent);
+            lens.appendChild(content);
+            
+            // 添加到容器
+            magnifyContainer.appendChild(lens);
+            
+            // 淡入效果
+            setTimeout(() => {
+                lens.style.opacity = 0.9;
+            }, 10);
+            
+            // 設置淡出和刪除
+            setTimeout(() => {
+                if (lens.parentNode) {
+                    lens.style.opacity = 0;
+                    setTimeout(() => {
+                        if (lens.parentNode) {
+                            lens.parentNode.removeChild(lens);
+                        }
+                    }, 1000);
+                }
+            }, 5000 + Math.random() * 3000); // 5-8秒後消失
+        }
+        
+        // 處理黑色遮色片移動
+        function handleBlackoutMove(e) {
+            if (!blackoutActive) return;
+            
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // 移動黑色遮色片位置
+            blackoutMask.style.transform = `translate(calc(-50% + ${x - window.innerWidth/2}px), calc(-50% + ${y - window.innerHeight/2}px))`;
+        }
+
+        // 控制台代理
+        window.parent.postMessage({ action: "ready" }, "*");
+        
+        window.console = new Proxy(console, {
+            get(target, prop) {
+                if (['log', 'warn', 'error'].includes(prop)) {
+                    return new Proxy(target[prop], {
+                        apply(fn, thisArg, args) {
+                            fn.apply(thisArg, args);
+                            window.parent.postMessage({
+                                action: 'console',
+                                type: prop,
+                                args: args.map((arg) => {
+                                    try {
+                                        return JSON.stringify(arg).replace(/^["']|["']$/g, '');
+                                    } catch (e) {
+                                        return arg;
+                                    }
+                                })
+                            }, '*');
+                        }
+                    });
+                }
+                return target[prop];
+            }
+        });
+    </script>
+</body>
+</html>
