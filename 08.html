@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【ISO】第八章</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 通用效果文字樣式 */
+        .effect-text {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .effect-text:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        /* 音效播放效果 */
+        .sound-text {
+            position: relative;
+        }
+
+        .sound-text.active {
+            color: #c5c5c5;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        /* 雜訊背景圖片效果 */
+        #noiseOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://images.plurk.com/7L31pQ2CYoMtYUon4t0w8W.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 90;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in, opacity 1.5s ease-out;
+        }
+
+        /* 靜態雜訊覆蓋層 */
+        #staticNoise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('data:image/png;base64,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');
+            opacity: 0;
+            z-index: 91;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            transition: opacity 0.3s ease-in, opacity 1.5s ease-out;
+        }
+
+        /* 關門特效 */
+        .door-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            display: flex;
+        }
+
+        .door-left, .door-right {
+            width: 50%;
+            height: 100%;
+            background-color: #000;
+            transform: translateX(-100%);
+            transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+            position: relative;
+        }
+
+        .door-right {
+            transform: translateX(100%);
+        }
+
+        .door-left:after, .door-right:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .door-left:after {
+            right: 0;
+        }
+
+        .door-right:before {
+            left: 0;
+        }
+
+        .door-active .door-left {
+            transform: translateX(0);
+        }
+
+        .door-active .door-right {
+            transform: translateX(0);
+        }
+
+        /* 確保內容在門後面 */
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 圖片區域 -->
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/23qPhKZQezmGP4N0qlCjXE.png" 
+                     alt="大門" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <div class="space-y-16 content-container pb-24">
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">第八章．背叛</h2>
+                
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　「伊洛娜的信件肯定是陷阱。」安東尼奧將信件交給特倫頓的時候特地囑咐。
+                    <br>
+                    <br>
+                    　　聽見安東尼奧口中的真相及勸告，特倫頓心中五味雜陳。  
+                    <br>
+                    <br>
+                    　　他與伊登保持聯絡卻從不信任對方，同時又不願向福爾曼家族求助，才會走到今天這一步。若他向家族坦言伊洛娜懷上了別人的孩子，作為至今毫無貢獻的旁支而非嫡子，特倫頓將顏面盡失。儘管他私底下找來安東尼奧，這位舊日月宗的驅魔人作為第三方支援，現在看來，他仍然在伊登的誘導下逐漸孤立了自己。 
+                    <br>
+                    <br>
+                    　　特倫頓才是委託人，只要他不願共享情報，安東尼奧便沒有理由查看。
+                    <br>
+                    <br>
+                    　　「既然我要你替我追查真相，目的應該是讓伊洛娜——我的妻子回家，在福爾曼家族起疑之前。」他諷刺地看向手中信件，反問驅魔人：「你卻建議我毫無作為地接受愚蠢真相？」
+                    <br>
+                    <br>
+                    　　「所有線索都指向安德列斯家族有所圖謀。」安東尼奧冷靜回應並猶豫是否要警示特倫頓，又擔心對方抗拒導致更糟糕的局面，也許安德列斯家族的目標原本就是福爾曼家族，而不是針對特倫頓。
+                    <br>
+                    <br>
+                    　　「一切都太荒謬了。」特倫頓的乾笑聲帶有幾分嘶啞，「就算你協助我也只是個局外人。」
+                    <br>
+                    <br>
+                    　　最終安東尼奧避免激怒對方，只是垂下肩膀安慰：「好吧，希望你冷靜休息後再做出選擇。」
+                    <br>
+                    <br>
+                    　　「合作暫時中止，但你得守口如瓶，因為這是我們的約定。」
+                </p>  
+                <!-- 關門特效 -->
+                <p class="effect-text door-text leading-loose text-justify text-lg mb-6" data-effect="door">
+                    　　特倫頓沒有聽進安東尼奧的提醒，執意送客。
+                </p>
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">                          
+                    　　目送協助調查的神父離開後，他想起自己曾經拒絕許多人幫助，當然，其中也包括伊洛娜。如果單方面接受施捨而非交易，他和路邊乞討的人沒有分別，畢竟福爾曼家族十分好面子。也許是自作多情，因此特倫頓對伊洛娜感到一絲虧欠。
+                </p>          
+                <!-- 雜訊背景圖片效果 -->
+                <p class="effect-text noise-text leading-loose text-justify text-lg mb-6" data-effect="noise">
+                    　　黑色的信封沒有多餘的屬名，拆開的信紙有股淡淡氣味，因為伊洛娜的擁抱是特倫頓近來最深刻的記憶。
+                </p>                          
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">      
+                    　　此時伊洛娜正被囚禁在遠離城市的醫院裡，望著窗外的暗沉天色。
+                    <br>
+                    <br>                    
+                    　　伊洛娜也同樣感到虧欠，相比福爾曼家族，安德列斯家族的陋習能夠發家致富，近親結合的衰病卻導致無人主持家事，因此她和伊登做出決斷，企圖獲取福爾曼家族的資產，但是伊洛娜何嘗沒有察覺特倫頓則是另一個自己？
+                    <br>
+                    <br>                    
+                    　　她原本想在信中解釋一切，只可惜在伊登注目當中，只能寫下：「救我。」
+                    <br>
+                    <br>
+                    　　並且附上醫院的地址，再任伊登割開掌心將血液塗抹於信紙、按壓出痕跡。
+                    <br>
+                    <br>                    
+                    　　伊洛娜總覺得伊登近來變得陌生，有些不對勁。他們兩人的計畫原本不該如此發展，況且伊登會對著空氣討論，每天給她一份文字跳動扭曲的報紙，央求她飲用盛滿血液的紅茶杯。隔壁的病房經常傳來痛苦呻吟和哭泣，畢竟這裡是醫院——原本就是距離生死最近的地方。
+                    <br>
+                    <br>                    
+                    　　伊登會替腹中孩子唸童話故事，關於漢賽爾與葛麗特，這對姊弟最後一起燒死了巫婆。這是他們童年經常閱讀的童話，原本計畫由伊洛娜扮演無辜受害者，伊登在背後操控一切，使福爾曼家族陷入重大災害，再讓伊洛娜腹中的孩子作為唯一繼承人。
+                    <br>
+                    <br>                    
+                    　　伊洛娜卻反悔了，因為她希望特倫頓可以活下來，即便特倫頓會永遠憎恨她與伊登。
+                </p>     
+                <!-- 音效播放效果 -->
+                <p class="effect-text sound-text leading-loose text-justify text-lg mb-6" data-effect="sound">
+                    　　當特倫頓履行約定來到偏郊的醫院，他發現醫院氣氛詭譎，入口竟然沒有任何人。
+                    <br>
+                    <br>                      
+                    　　停車場只有一台落滿灰塵的黑色轎車，車窗上凝結了一層薄霧。幾株荒廢已久的灌木蔓延到石階上，醫院大門呈半開狀態。不合理的寧靜籠罩著整座建築，沒有預想中的警衛，穿梭的護士，甚至連病患都不見蹤影。
+                </p>  
+            </section>
+        </div>
+    </div>
+
+    <!-- 特效元素 -->
+    <div id="noiseOverlay"></div>
+    <div id="staticNoise"></div>
+    <div class="door-container">
+        <div class="door-left"></div>
+        <div class="door-right"></div>
+    </div>
+    
+    <!-- 音效元素 -->
+    <audio id="sound-effect" preload="auto">
+        <source src="https://gcr77784.github.io/ISO2/viento-119996.mp3" type="audio/mpeg">
+        您的瀏覽器不支援音訊元素。
+    </audio>
+
+    <script>
+        // 音效播放器
+        const soundEffect = document.getElementById('sound-effect');
+        
+        // 設置音量
+        soundEffect.volume = 1.0;
+        
+        // 特效元素
+        const noiseOverlay = document.getElementById('noiseOverlay');
+        const staticNoise = document.getElementById('staticNoise');
+        const doorContainer = document.querySelector('.door-container');
+        
+        // 當前活動的效果類型
+        let activeEffectType = null;
+        
+        // 為每個效果文字添加點擊事件
+        document.querySelectorAll('.effect-text').forEach(element => {
+            element.addEventListener('click', function() {
+                const effectType = this.dataset.effect;
+                
+                // 如果點擊的是已經活動的效果，則關閉它（除了一次性效果）
+                if (activeEffectType === effectType && effectType !== 'door' && effectType !== 'noise') {
+                    deactivateEffect(effectType);
+                    activeEffectType = null;
+                    this.classList.remove('active');
+                    return;
+                }
+                
+                // 如果有其他活動效果，先關閉它
+                if (activeEffectType && activeEffectType !== 'door' && activeEffectType !== 'noise') {
+                    deactivateEffect(activeEffectType);
+                    document.querySelector(`.${activeEffectType}-text.active`)?.classList.remove('active');
+                }
+                
+                // 激活當前點擊的效果
+                activateEffect(effectType, this);
+                
+                // 只有持續性效果才設置為當前效果
+                if (effectType !== 'door' && effectType !== 'noise') {
+                    activeEffectType = effectType;
+                }
+                
+                this.classList.add('active');
+                
+                // 對於短暫效果，自動移除active類
+                if (effectType === 'noise') {
+                    setTimeout(() => {
+                        this.classList.remove('active');
+                    }, 3000); // 3秒後移除active類
+                }
+            });
+        });
+        
+        // 激活特定效果
+        function activateEffect(effectType, element) {
+            switch(effectType) {
+                case 'sound':
+                    // 播放音效
+                    try {
+                        soundEffect.currentTime = 0;
+                        soundEffect.play().catch(error => {
+                            console.error("音效播放失敗:", error);
+                        });
+                    } catch (error) {
+                        console.error("音效播放出錯:", error);
+                    }
+                    break;
+                    
+                case 'noise':
+                    // 顯示雜訊背景圖片，3秒後開始淡出
+                    noiseOverlay.style.opacity = '0.25';  // 25%透明度
+                    staticNoise.style.opacity = '0.6';  // 顯示靜態雜訊
+                    
+                    // 3秒後開始1.5秒淡出效果
+                    setTimeout(() => {
+                        noiseOverlay.style.opacity = '0';
+                        staticNoise.style.opacity = '0';
+                    }, 3000);
+                    break;
+                    
+                case 'door':
+                    // 觸發關門動畫
+                    doorContainer.classList.add('door-active');
+                    
+                    // 4秒後恢復
+                    setTimeout(() => {
+                        doorContainer.classList.remove('door-active');
+                    }, 4000);
+                    break;
+            }
+        }
+        
+        // 關閉特定效果
+        function deactivateEffect(effectType) {
+            switch(effectType) {
+                case 'sound':
+                    // 停止音效
+                    soundEffect.pause();
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
