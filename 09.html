@@ -1,0 +1,335 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【ISO】第九章</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif TC", serif;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow-x: hidden;
+            background-color: black;
+            color: #d1d1d1;
+        }
+
+        /* 通用效果文字樣式 */
+        .effect-text {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .effect-text:hover {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        /* 1. 文字閃爍效果 - 紅色恐怖版 */
+        @keyframes textFlickerRed {
+            0% { 
+                color: #d1d1d1; 
+                text-shadow: none;
+            }
+            25% { 
+                color: #ff0000; 
+                text-shadow: 0 0 8px rgba(255, 0, 0, 0.7);
+            }
+            50% { 
+                color: #d1d1d1; 
+                text-shadow: none;
+            }
+            75% { 
+                color: #ff2222; 
+                text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            }
+            100% { 
+                color: #d1d1d1; 
+                text-shadow: none;
+            }
+        }
+
+        .flicker-text.active {
+            animation: textFlickerRed 0.3s infinite;
+        }
+
+        /* 2. 文字掉落效果 */
+        @keyframes textFallDown {
+            0% { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes textFallIn {
+            0% { 
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+            100% { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .falling-text.falling-down {
+            animation: textFallDown 1s forwards;
+        }
+
+        .falling-text.falling-in {
+            animation: textFallIn 1s forwards;
+        }
+
+        /* 3. 文字消失效果 */
+        .content-container {
+            transition: opacity 4s ease-out;
+        }
+        
+        .fade-out-all {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- 圖片區域 -->
+        <div class="mt-8 sm:mt-12 mb-8 sm:mb-12">
+            <div class="aspect-w-16 aspect-h-9 relative rounded-lg overflow-hidden">
+                <img src="https://images.plurk.com/Kh5cokC1tmLk8XzjEndYB.png" 
+                     alt="人影" 
+                     class="w-full h-full object-cover object-center rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <div class="space-y-16 content-container pb-24" id="mainContent">
+            <section class="prose prose-invert max-w-none">
+                <h2 class="text-3xl font-medium text-gray-100 mb-6 pb-2 border-b border-gray-800">第九章．生命</h2>
+                
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">
+                    　　特倫頓踏入這座詭異的醫院，推開半掩大門，空氣中瀰漫霉味與某種發酵後的腥臭，他從未聞過這種氣味。
+                    <br>
+                    <br>
+                    　　「伊洛娜？」特倫頓的聲音在大廳裡迴盪，無人回應。
+                    <br>
+                    <br>                   
+                    　　櫃台內有推車被撞倒，櫃子被打開，文件散落滿地，人員似乎倉促撤離。他撿起幾張紙，仔細檢視—這裡的單據全屬於聖安德列斯療養院。櫃台後方的病歷冊頁已泛黃，就診病患的姓氏幾乎都是安德列斯，其中不乏伊登與伊洛娜的父母。特倫頓只在訂婚時見過他們一次，兩人身體孱弱，會面時長無法超過六十分鐘。
+                    <br>
+                    <br>                   
+                    　　當他繼續翻閱文件時，櫃台電腦螢幕無預警亮起，閃過幾行文字：
+                 </p>                  
+                <!-- 文字閃爍和替換效果 -->
+                <p class="effect-text flicker-text leading-loose text-justify text-lg mb-6" data-effect="flicker" 
+                   data-normal-text="　　快來樓上，救我。" 
+                   data-hidden-text="　　嘻嘻，地獄正在等著你。">
+                   　　快來樓上，救我。
+                </p>
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">                                   
+                   　　青綠色的閃爍燈光令特倫頓心神不寧。他瞄向桌下，發現螢幕和主機電源線根本沒有連接。特倫頓握緊口袋中的骨質袖扣，無視大廳旁發出「叮」一聲敞開門的電梯，迅速衝向樓梯。
+                </p>                    
+                <!-- 文字掉落效果 -->
+                <p class="effect-text falling-text leading-loose text-justify text-lg mb-6" data-effect="falling">
+                    　　但是該往上還是往下？
+                </p>
+                <!-- 一般文字 -->
+                <p class="leading-loose text-justify text-lg mb-6">                                   
+                   　　不可名狀之物引導他至樓上，特倫頓卻本能地推開安全門向下。踏上第一級台階，他立刻後悔了。心臟不規律地狂跳，他知道醫院地底通常是停車場或太平間，走廊滿地蠅蟲，在昏暗燈光下，他看見輪椅上有一名被棄置的病患屍體。
+                   <br>
+                   <br>                  
+                   　　特倫頓屏住呼吸靠近觀察。雖然五官有些像伊洛娜，但女人衰老、極度消瘦、腹部平坦。
+                   <br>
+                   <br>
+                   　　強忍著惡臭繼續深入，病房門上的號碼牌時而清晰時而模糊，甚至沒有按順序排列。當其中一間病房傳來孩子的啜泣聲，他立即推開門，卻只見一張空病床；複數腳步聲在空蕩走廊上迴盪，回頭卻看不見任何人影——特倫頓雖然緊握骨質袖扣，卻仍頻繁出現幻覺。
+                   <br>
+                   <br>
+                   　　難道他選錯了方向？
+                   <br>
+                   <br>
+                   　　特倫頓漸漸意識到詭異事實：這裡雖然是地下，沿途經過的病房窗景卻在白晝與黑夜間不規則切換，而且來到走廊盡頭，一個滿身蠅蟲的人影向他走來，地底深處傳來伊登的聲音——不，是四面八方湧來無數聲音，所有人都在嘲笑他。
+                   <br>
+                   <br>
+                   　　這一切都發生得太突然了，就連伊登自己也預想不到。
+                   <br>
+                   <br>
+                   　　那些邪靈如同童話故事裡給予好運的精靈，對他低語：這個世界所有人都愛他，不僅豐衣足食，還會被自己喜愛的人事物環繞。就算擁有不吉的象徵，就算被侵蝕，他仍然與眾不同。畢竟伊洛娜離開前從未感受過痛苦，為何姊姊背叛自己，選了根本不愛她的丈夫？
+                   <br>
+                   <br>
+                   　　也許伊登相信那些甜言蜜語時就陷入了邪靈的圈套，沒有人能夠幸福。
+                   <br>
+                   <br>
+                   　　在伊登的視角中，他輕忽了特倫頓認知汙染後的攻擊性，預謀犯案成了受害者。當特倫頓破壞門板時，嚇壞了被束縛於病床上的伊洛娜。她深知丈夫的到來意味福爾曼家族已經識破計謀。特倫頓外套上的釦子全被扯掉，面露凶光，雙手鮮血淋漓。
+                   <br>
+                   <br>
+                   　　特倫頓根本沒有認出伊洛娜。正要撲向病床上的女人時突然被拉開，因為伊登終於趕到。持刀刺向特倫頓，趁亂割開病床束帶央求伊洛娜快逃，直到失去意識。
+                   <br>
+                   <br>
+                   　　而在特倫頓的視角中，他艱難地避開地板上呈現詭異花紋的血跡，躲避長廊上和病房突然出現的身影，以及忽然站起攻擊的屍體。聽見伊洛娜呼救，他好不容易破壞病房門板，卻眼睜睜看著伊洛娜被伊登殘忍傷害，割開腹部取出孩子。
+                   <br>
+                   <br>
+                   　　伊登聲稱這孩子受到了祝福，宛若神之子，可以解救安德列斯家族和伊洛娜。但是特倫頓始終認為——不管真相為何，伊洛娜所生就是自己的孩子，他來得及拯救的也只剩這個孩子。
+                   <br>
+                   <br>
+                   　　於是特倫頓與伊登爭搶伊洛娜腹中孩子，而伊洛娜的哀鳴漸漸微弱。她的雙眼因目睹悲劇和開腸剖肚的疼痛而模糊不清，溢滿了淚水。與戴環者血脈相連既是憐憫也是悲劇，此刻，她成了這場黑色帷幕中僅存的理智。
+                   <br>
+                   <br>
+                   　　幸好那頭金髮在昏暗環境中特別顯眼。當安東尼奧趕到時，昏厥的特倫頓尚有一絲氣息，伊登不見蹤影。傷勢最嚴重的是伊洛娜，四肢固定於病床，被迫剖腹取出的胎兒明顯死亡。她恐怕無法支撐太久，床單也完全浸潤為暗紅色。
+                   <br>
+                   <br>
+                   　　「特倫頓？」伊洛娜察覺有人靠近病床，低聲傾訴：「我應該告訴你的，你傲慢、思想過時又貧脊……」
+                   <br>
+                   <br>
+                   　　「我以為傷害你也不會產生罪惡感，是莫可奈何的選擇……結果你嫌棄我，卻在別人面前讚美；寫在備忘錄上的東西總會出現在櫥櫃裡；車子不必加油，睡醒就有早餐放在床頭，家裡卻根本沒有請傭人……」
+                   <br>
+                   <br>
+                   　　「如果你愛我，也願意尊重我，我有什麼資格傷害你呢？」伊洛娜的視線更模糊了，她心想，至少要說出道歉：「對不起。」
+                </p>
+                <!-- 文字淡出效果 -->
+                <p class="effect-text fade-text leading-loose text-justify text-lg mb-6" data-effect="fade">
+                    　　伊洛娜希望特倫頓能夠聽見，抬起沉重的眼皮，確認那頭耀眼金髮在視線裡搖曳——對方主動握住她的手並點了點頭。
+                </p>
+                         
+            </section>
+        </div>
+    </div>
+    
+    <script>
+        
+        // 當前活動的效果類型
+        let activeEffectType = null;
+        let activeElement = null;
+        
+        // 為每個效果文字添加點擊事件
+        document.querySelectorAll('.effect-text').forEach(element => {
+            element.addEventListener('click', function() {
+                const effectType = this.dataset.effect;
+                
+                // 先播放音效
+                try {
+                    soundEffect.currentTime = 0;
+                    soundEffect.play().catch(error => {
+                        console.error("音效播放失敗:", error);
+                    });
+                } catch (error) {
+                    console.error("音效播放出錯:", error);
+                }
+                
+                // 如果點擊的是已經活動的同一元素，則關閉效果
+                if (activeElement === this && activeEffectType === effectType) {
+                    deactivateEffect(effectType, this);
+                    activeEffectType = null;
+                    activeElement = null;
+                    return;
+                }
+                
+                // 如果有其他活動效果，先關閉它
+                if (activeEffectType) {
+                    deactivateEffect(activeEffectType, activeElement);
+                }
+                
+                // 啟動當前點擊的效果
+                activateEffect(effectType, this);
+                
+                // 設置為當前活動效果
+                activeEffectType = effectType;
+                activeElement = this;
+            });
+        });
+        
+        // 啟動特定效果
+        function activateEffect(effectType, element) {
+            switch(effectType) {
+                case 'flicker':
+                    // 文字閃爍和替換效果 - 簡化版
+                    const normalText = element.dataset.normalText;
+                    const hiddenText = element.dataset.hiddenText;
+                    
+                    // 開始紅色閃爍
+                    element.classList.add('active');
+                    
+                    // 一秒後停止閃爍並替換為隱藏文字
+                    setTimeout(() => {
+                        element.classList.remove('active'); // 停止閃爍
+                        element.style.color = '#ff0000'; // 設為紅色
+                        element.style.textShadow = '0 0 5px rgba(255, 0, 0, 0.5)'; // 添加紅色陰影
+                        element.textContent = hiddenText; // 替換文字內容
+                        
+                        // 3秒後恢復原來的文字
+                        setTimeout(() => {
+                            element.style.color = ''; // 恢復原色
+                            element.style.textShadow = ''; // 移除陰影
+                            element.textContent = normalText; // 恢復原文
+                        }, 3000);
+                    }, 1000);
+                    break;
+                    
+                case 'falling':
+                    // 文字掉落效果
+                    element.classList.add('falling-down');
+                    
+                    setTimeout(() => {
+                        // 移除往下掉的動畫，準備從上方掉回來
+                        element.classList.remove('falling-down');
+                        
+                        // 準備從上方掉回來
+                        element.style.opacity = '0';
+                        element.style.transform = 'translateY(-100vh)';
+                        
+                        // 短暫延遲後添加掉回來的動畫
+                        setTimeout(() => {
+                            element.classList.add('falling-in');
+                            
+                            // 動畫結束後清理
+                            setTimeout(() => {
+                                element.classList.remove('falling-in');
+                                element.style.transform = '';
+                                element.style.opacity = '1';
+                            }, 1000);
+                        }, 50);
+                    }, 1000);
+                    break;
+                    
+                case 'fade':
+                    // 所有文字淡出效果
+                    mainContent.classList.add('fade-out-all');
+                    break;
+            }
+        }
+        
+        // 關閉特定效果
+        function deactivateEffect(effectType, element) {
+            if (!element) return;
+            
+            switch(effectType) {
+                case 'flicker':
+                    // 恢復原來的文字和顏色
+                    element.classList.remove('active');
+                    element.style.color = '';
+                    element.style.textShadow = '';
+                    element.textContent = element.dataset.normalText;
+                    break;
+                    
+                case 'falling':
+                    element.classList.remove('falling-down', 'falling-in');
+                    element.style.transform = '';
+                    element.style.opacity = '1';
+                    break;
+                    
+                case 'fade':
+                    // 恢復所有文字
+                    mainContent.classList.remove('fade-out-all');
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
